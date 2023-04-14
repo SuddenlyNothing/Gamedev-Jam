@@ -222,8 +222,8 @@ func set_color(to: Color) -> void:
 
 # Animates the current styling to the new given to style
 func set_style(to: String) -> void:
-#	if started_scene_transition:
-#		return
+	if started_scene_transition:
+		return
 	var from := bg.get_stylebox("panel") as StyleBoxFlat
 	var style: StyleBoxFlat = null
 	var timing := 0.0
@@ -388,7 +388,6 @@ func _on_AnimButton_button_up() -> void:
 	if (is_mouse_inside or focused) and is_visible_in_tree():
 		set_style("hover")
 	else:
-		print("button up")
 		set_style("normal")
 
 

@@ -67,6 +67,8 @@ MusicPlayer="*res://auto_loads/MusicPlayer.tscn"
 
 window/size/width=448
 window/size/height=256
+window/size/test_width=896
+window/size/test_height=512
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
