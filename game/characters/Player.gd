@@ -5,16 +5,17 @@ export(float) var walk_max_speed := 80.0
 export(float) var walk_friction := 1200.0
 export(float) var walk_turn_mult := 3.0
 
-export(float) var mine_acceleration := 100.0
-export(float) var mine_max_speed := 250.0
+export(float) var mine_acceleration := 300.0
+export(float) var mine_max_speed := 1000.0
 export(float) var mine_friction := 50.0
-export(float) var mine_turn_mult := 1.0
+export(float) var mine_turn_mult := 0.7
 
 var input := 0
 var velocity: float = 0.0
 var mining := false
 
 onready var player_states := $PlayerStates
+onready var anim_sprite := $AnimatedSprite
 
 
 func _process(delta: float) -> void:
@@ -65,3 +66,7 @@ func apply_friction(delta: float, friction: float) -> void:
 
 func set_mining(val: bool) -> void:
 	mining = val
+
+
+func play_anim(anim: String) -> void:
+	anim_sprite.play(anim)

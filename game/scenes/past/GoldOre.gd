@@ -10,6 +10,7 @@ var interval := 0.02
 onready var timer := $Timer
 onready var sprite := $Sprite
 onready var origin: Vector2 = sprite.position
+onready var collision_shape := $CollisionShape2D
 
 
 func _ready() -> void:
@@ -18,12 +19,14 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	time += delta
-	print("frame")
 	if time > interval:
-		print("shake")
 		sprite.position = origin + Vector2((randf() - 0.5) * 5,
 				(randf() - 0.5) * 5)
 		time = fmod(time, interval)
+
+
+func set_past(past: bool) -> void:
+	collision_shape.call_deferred("set_disabled", not past)
 
 
 func _on_GoldOre_body_entered(body: Node) -> void:
@@ -44,7 +47,3 @@ func _on_Timer_timeout() -> void:
 	get_parent().add_child(gold)
 	emit_signal("collected")
 	queue_free()
-
-
-func _on_ShakeTimer_timeout() -> void:
-	pass # Replace with function body.

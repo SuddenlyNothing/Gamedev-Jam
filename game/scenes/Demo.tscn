@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://utils/ButtonChangeScene.gd" type="Script" id=1]
 [ext_resource path="res://utils/InputFormatLabel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://characters/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/past/MineArea.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/GlobalCamera.tscn" type="PackedScene" id=5]
 
 [node name="Demo" type="Node2D"]
 
@@ -24,7 +25,9 @@ text = "{up}, {down}, {left}, {right}, {pause}"
 autowrap = true
 
 [node name="MineArea" parent="." instance=ExtResource( 4 )]
-position = Vector2( 288, 222 )
+position = Vector2( 502, 222 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 144, 214 )
+
+[node name="GlobalCamera" parent="Player" instance=ExtResource( 5 )]

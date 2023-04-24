@@ -43,11 +43,23 @@ func _get_transition(delta: float):
 # new_state is the state being entered.
 # old_state is the state being exited.
 func _enter_state(new_state: String, old_state) -> void:
-	pass
+	match new_state:
+		states.idle:
+			parent.play_anim("idle")
+		states.walk:
+			parent.play_anim("walk")
+		states.mine:
+			parent.play_anim("mine")
 
 
 # Called on exiting state.
 # old_state is the state being exited.
 # new_state is the state being entered.
 func _exit_state(old_state, new_state: String) -> void:
-	pass
+	match old_state:
+		states.idle:
+			pass
+		states.walk:
+			pass
+		states.mine:
+			pass

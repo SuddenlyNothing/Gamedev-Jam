@@ -4,9 +4,9 @@
 [ext_resource path="res://assets/temp/mine.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 80, 28 )
+extents = Vector2( 200, 28 )
 
-[node name="MineArea" type="Area2D"]
+[node name="MineArea" type="Area2D" groups=["past"]]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 1 )
@@ -17,7 +17,6 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -20 )
-z_index = -12
 texture = ExtResource( 2 )
 
 [connection signal="body_entered" from="." to="." method="_on_MineArea_body_entered"]

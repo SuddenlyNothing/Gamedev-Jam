@@ -26,21 +26,26 @@ func _process(delta: float) -> void:
 		position.y = ground
 
 
+func set_past(past: bool) -> void:
+	if connected:
+		collision_shape.call_deferred("set_disabled", not past)
+	set_process(past)
+
+
 func _on_Gold_body_entered(body: Node2D) -> void:
 	self.disconnect("body_entered", self, "_on_Gold_body_entered")
 	target = body
 	set_process(false)
-	offset = global_position + (Vector2.RIGHT * 10).rotated(randf() * 2 * PI)
-	var t := create_tween().set_trans(Tween.TRANS_QUAD)\
-			.set_ease(Tween.EASE_IN_OUT)
-	t.tween_method(self, "move_collect", 0.0, 1.0, 0.3)
+	offset = global_position + (Vector2.RIGHT * 50).rotated(randf() * 2 * PI)
+	var t := create_tween().set_trans(Tween.TRANS_SINE)\
+			.set_ease(Tween.EASE_IN)
+	t.tween_method(self, "move_collect", 0.0, 1.0, 0.4)
 	t.tween_callback(self, "hide")
 	t.tween_callback(collect_sfx, "play")
 
 
 func move_collect(weight: float) -> void:
-	global_position = lerp(global_position,
-			lerp(offset, target.global_position, weight), weight)
+	global_position = lerp(global_position, target.global_position, weight)
 
 
 func _on_CollectSFX_finished() -> void:
