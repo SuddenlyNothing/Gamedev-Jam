@@ -13,13 +13,56 @@ export(float) var mine_turn_mult := 0.7
 var input := 0
 var velocity: float = 0.0
 var mining := false
+var gold := 76
+var locked := false setget set_locked
+
+var gun := false setget set_gun
+var shield := false setget set_shield
+var scissor := false setget set_scissor
 
 onready var player_states := $PlayerStates
 onready var anim_sprite := $AnimatedSprite
+onready var gold_count := $C/C/M/H/GoldCount
+onready var dialog_player := $C/DialogPlayer
 
 
 func _process(delta: float) -> void:
 	get_input()
+
+
+func set_locked(locked: bool) -> void:
+	set_process(not locked)
+	if locked:
+		input = 0
+		velocity = 0
+
+
+func set_gun(val: bool) -> void:
+	dialog_player.read([
+		"Press {interact} to shoot."
+	])
+
+
+func set_shield(val: bool) -> void:
+	dialog_player.read([
+		"Bullets no longer hurt."
+	])
+
+
+func set_scissor(val: bool) -> void:
+	dialog_player.read([
+		"Scissor beats paper..."
+	])
+
+
+func collect_gold() -> void:
+	gold += 1
+	gold_count.text = str(gold)
+
+
+func sell_gold(amt: int) -> void:
+	gold -= amt
+	gold_count.text = str(gold)
 
 
 func get_input() -> void:

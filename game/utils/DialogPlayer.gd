@@ -34,9 +34,9 @@ func _ready() -> void:
 		read(autoplay_dialog)
 
 
-func _gui_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if has_dialog:
-		if event.is_action_pressed("continue", false, false):
+		if event.is_action_pressed("interact", false, false):
 			if reading:
 				t.kill()
 				label.percent_visible = 1.0

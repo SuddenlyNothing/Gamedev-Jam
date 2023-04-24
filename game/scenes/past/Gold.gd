@@ -7,6 +7,7 @@ var offset: Vector2
 
 var velocity := Vector2((randf() - 0.5) * 100.0, -200.0)
 var connected := false
+var player: Node2D
 
 onready var ground := position.y
 onready var collect_sfx := $CollectSFX
@@ -34,11 +35,13 @@ func set_past(past: bool) -> void:
 
 func _on_Gold_body_entered(body: Node2D) -> void:
 	self.disconnect("body_entered", self, "_on_Gold_body_entered")
+	player = body
 	target = body
 	set_process(false)
 	offset = global_position + (Vector2.RIGHT * 50).rotated(randf() * 2 * PI)
 	var t := create_tween().set_trans(Tween.TRANS_SINE)\
 			.set_ease(Tween.EASE_IN)
+	t.tween_callback(player, "collect_gold")
 	t.tween_method(self, "move_collect", 0.0, 1.0, 0.4)
 	t.tween_callback(self, "hide")
 	t.tween_callback(collect_sfx, "play")

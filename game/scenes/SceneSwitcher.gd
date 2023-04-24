@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("continue") and (not t or not t.is_running()):
+	if Input.is_action_just_pressed("time_travel") and (not t or not t.is_running()):
 		toggle_scene()
 
 

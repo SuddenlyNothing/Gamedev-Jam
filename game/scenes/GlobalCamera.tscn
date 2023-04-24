@@ -5,4 +5,5 @@
 [node name="GlobalCamera" type="Camera2D" groups=["global_camera"]]
 offset = Vector2( 0, -80 )
 current = true
+limit_left = 0
 script = ExtResource( 1 )

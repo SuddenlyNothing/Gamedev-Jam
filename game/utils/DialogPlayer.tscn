@@ -14,10 +14,10 @@ default_audio = ExtResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-custom_constants/margin_top = 174
+custom_constants/margin_top = 200
 
 [node name="ColorRect" type="ColorRect" parent="M"]
-margin_top = 174.0
+margin_top = 200.0
 margin_right = 448.0
 margin_bottom = 256.0
 mouse_filter = 2
@@ -37,7 +37,7 @@ unique_name_in_owner = true
 margin_left = 50.0
 margin_top = 10.0
 margin_right = 398.0
-margin_bottom = 72.0
+margin_bottom = 46.0
 
 [node name="TextSFX" type="AudioStreamPlayer" parent="."]
 bus = "SFX"
