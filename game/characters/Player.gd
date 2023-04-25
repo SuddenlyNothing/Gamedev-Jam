@@ -1,40 +1,78 @@
 extends KinematicBody2D
 
+signal collected_gold(amt)
+signal dialog_finished
+
 export(float) var walk_acceleration := 300.0
-export(float) var walk_max_speed := 80.0
+export(float) var walk_max_speed := 150.0
 export(float) var walk_friction := 1200.0
 export(float) var walk_turn_mult := 3.0
 
 export(float) var mine_acceleration := 300.0
 export(float) var mine_max_speed := 1000.0
 export(float) var mine_friction := 50.0
-export(float) var mine_turn_mult := 0.7
+export(float) var mine_turn_mult := 0.8
 
 var input := 0
 var velocity: float = 0.0
 var mining := false
-var gold := 76
+var gold := 0
 var locked := false setget set_locked
+
+var going := false
+var target: float
 
 var gun := false setget set_gun
 var shield := false setget set_shield
 var scissor := false setget set_scissor
 
 onready var player_states := $PlayerStates
-onready var anim_sprite := $AnimatedSprite
+onready var anim_sprite := $Pivot/AnimatedSprite
 onready var gold_count := $C/C/M/H/GoldCount
 onready var dialog_player := $C/DialogPlayer
+onready var gold_icon := $C/C/M/H/GoldIcon
+onready var pivot := $Pivot
+onready var gold_icon_pos: Vector2 = gold_icon.rect_position
+onready var collision := $CollisionShape2D
+onready var fade := $C/Fade
 
 
 func _process(delta: float) -> void:
+	if locked:
+		return
 	get_input()
 
 
-func set_locked(locked: bool) -> void:
-	set_process(not locked)
+func _physics_process(delta: float) -> void:
+	if going:
+		var move_amount := walk_max_speed * delta
+		if abs(position.x - target) <= move_amount:
+			position.x = target
+		else:
+			position.x += move_amount * sign(target - position.x)
+
+
+func set_locked(val: bool) -> void:
+	locked = val
 	if locked:
 		input = 0
 		velocity = 0
+
+
+func read(dialog: Array) -> void:
+	play_anim("talk")
+	dialog_player.read(dialog)
+
+
+func goto_pos(x: float) -> void:
+	set_facing(x - position.x)
+	target = x
+	going = true
+
+
+func set_facing(input: int) -> void:
+	if sign(pivot.scale.x) != sign(input):
+		pivot.scale.x *= -1
 
 
 func set_gun(val: bool) -> void:
@@ -58,6 +96,12 @@ func set_scissor(val: bool) -> void:
 func collect_gold() -> void:
 	gold += 1
 	gold_count.text = str(gold)
+	var t := create_tween().set_ease(Tween.EASE_OUT)\
+			.set_trans(Tween.TRANS_QUAD)
+	t.tween_property(gold_icon, "rect_position:y",
+			gold_icon_pos.y, 0.2)\
+			.from(gold_icon_pos.y - 5)
+	emit_signal("collected_gold", gold)
 
 
 func sell_gold(amt: int) -> void:
@@ -81,6 +125,7 @@ func move(delta: float,
 		friction: float = walk_friction,
 		turn_mult: float = walk_turn_mult) -> void:
 	if input:
+		set_facing(input)
 		apply_acceleration(delta, acceleration, max_speed, turn_mult)
 	else:
 		apply_friction(delta, friction)
@@ -113,3 +158,23 @@ func set_mining(val: bool) -> void:
 
 func play_anim(anim: String) -> void:
 	anim_sprite.play(anim)
+
+
+func disable_collisions() -> void:
+	collision.call_deferred("set_disabled", true)
+
+
+func die() -> void:
+	fade.show()
+	get_tree().call_group("global_camera", "set_focus", self)
+	disable_collisions()
+	var t := create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
+	t.tween_property(fade, "modulate:a", 1.0, 1.5)
+	yield(t, "finished")
+	SceneHandler.restart_scene()
+
+
+func _on_DialogPlayer_dialog_finished() -> void:
+	anim_sprite.play("idle")
+	emit_signal("dialog_finished")
+	fade.show()

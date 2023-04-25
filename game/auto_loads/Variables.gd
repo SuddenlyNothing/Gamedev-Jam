@@ -11,3 +11,5 @@ var user_keys := PoolStringArray([
 
 # Used for formatting strings to display the correct key.
 var input_format := {}
+
+var intro_cutscene := false

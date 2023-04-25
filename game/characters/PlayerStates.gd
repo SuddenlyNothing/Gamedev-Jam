@@ -1,11 +1,14 @@
 extends StateMachine
 
+var died := false
+
 
 func _ready() -> void:
 	add_state("idle")
 	add_state("walk")
 	add_state("mine")
 	add_state("cut")
+	add_state("death")
 	call_deferred("set_state", "idle")
 
 
@@ -50,6 +53,9 @@ func _enter_state(new_state: String, old_state) -> void:
 			parent.play_anim("walk")
 		states.mine:
 			parent.play_anim("mine")
+		states.death:
+			parent.play_anim("death")
+			parent.die()
 
 
 # Called on exiting state.
@@ -63,3 +69,13 @@ func _exit_state(old_state, new_state: String) -> void:
 			pass
 		states.mine:
 			pass
+
+
+# Sets state while calling _exit_state and _enter_state
+# If you want to call this method use call_deferred.
+func set_state(new_state: String) -> void:
+	if died:
+		return
+	if new_state == states.death:
+		died = true
+	.set_state(new_state)

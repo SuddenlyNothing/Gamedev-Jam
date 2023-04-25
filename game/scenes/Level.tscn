@@ -1,17 +1,121 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://characters/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/SceneSwitcher.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/GlobalCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://characters/EnemyPuppet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://characters/Waypoints.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Level.gd" type="Script" id=6]
+[ext_resource path="res://utils/DialogPlayer.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/present/Appear.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Banner.tscn" type="PackedScene" id=9]
+[ext_resource path="res://characters/Friend.tscn" type="PackedScene" id=10]
+[ext_resource path="res://characters/Scientist.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/temp/gun.png" type="Texture" id=12]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
 
 [node name="Level" type="Node2D"]
+script = ExtResource( 6 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 216.0 ]
+"_edit_horizontal_guides_": [ 226.0, 200.0, 244.0 ]
 }
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( -10, 206 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
 
 [node name="SceneSwitcher" parent="." instance=ExtResource( 2 )]
 
+[node name="Friend" parent="." instance=ExtResource( 10 )]
+position = Vector2( 340, 200 )
+__meta__ = {
+"_editor_description_": ""
+}
+dialog_color = Color( 0, 0.670588, 1, 1 )
+waypoints_path = NodePath("../Waypoints")
+autoplay_dialog = [ [  ], [ "Looking at the shop again are we?" ] ]
+
+[node name="Waypoints" parent="." instance=ExtResource( 5 )]
+
+[node name="Position2D" type="Position2D" parent="Waypoints"]
+position = Vector2( 477, 226 )
+
+[node name="FriendFinalPos" type="Position2D" parent="Waypoints"]
+position = Vector2( 249, 226 )
+
+[node name="Position2D3" type="Position2D" parent="Waypoints"]
+position = Vector2( 425, 226 )
+
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 224, 208 )
+position = Vector2( 224, 192 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 17.0 ],
+"_edit_vertical_guides_": [ 27.0 ]
+}
 
 [node name="GlobalCamera" parent="Player" instance=ExtResource( 3 )]
+
+[node name="Scientist" parent="." instance=ExtResource( 11 )]
+visible = false
+position = Vector2( 289, 200 )
+__meta__ = {
+"_editor_description_": ""
+}
+dialog_color = Color( 0.8, 0.517647, 0.517647, 1 )
+waypoints_path = NodePath("../Waypoints2")
+
+[node name="Appear" parent="Scientist" instance=ExtResource( 8 )]
+
+[node name="Waypoints2" parent="." instance=ExtResource( 5 )]
+
+[node name="Position2D2" type="Position2D" parent="Waypoints2"]
+position = Vector2( 289, 244 )
+
+[node name="Position2D5" type="Position2D" parent="Waypoints2"]
+position = Vector2( 230, 244 )
+
+[node name="Position2D4" type="Position2D" parent="Waypoints2"]
+position = Vector2( 289, 244 )
+
+[node name="C" type="CanvasLayer" parent="."]
+
+[node name="DialogPlayer" parent="C" instance=ExtResource( 7 )]
+
+[node name="Banner" parent="C" instance=ExtResource( 9 )]
+
+[node name="MineFound" type="Area2D" parent="."]
+position = Vector2( 458, 190 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MineFound"]
+shape = SubResource( 2 )
+
+[node name="EnemyLeader" parent="." instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 0, 200 )
+dialog_color = Color( 0.745098, 0.156863, 0.156863, 1 )
+
+[node name="Enemy" parent="." instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 0, 200 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 0, 200 )
+
+[node name="PropGun" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 12 )
+flip_h = true
+
+[node name="BulletPos" type="Position2D" parent="PropGun"]
+position = Vector2( -3, 0 )
+
+[connection signal="collected_gold" from="Player" to="." method="_on_Player_collected_gold"]
+[connection signal="body_entered" from="MineFound" to="." method="_on_MineFound_body_entered"]

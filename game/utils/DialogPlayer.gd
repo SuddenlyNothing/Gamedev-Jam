@@ -51,7 +51,7 @@ func read(d: Array, color: Color = default_color,
 		sfx: AudioStream = default_audio) -> void:
 	if not sfx:
 		sfx = default_audio
-	label.modulate = color
+	label.set("custom_colors/default_color", color)
 	text_sfx.stream = sfx
 	has_dialog = true
 	d_ind = -1
@@ -121,7 +121,7 @@ func stop() -> void:
 
 func update_keys():
 	var new_dialog: String = curr_text.format(Variables.input_format)
-	label.text = new_dialog
+	label.bbcode_text = new_dialog
 	if new_dialog == curr_text or not t or not t.is_running():
 		return
 	t.kill()

@@ -1,5 +1,7 @@
 extends Node2D
 
+signal switched_scene
+
 onready var bg1 := $Bg1
 onready var bg2 := $BackBufferCopy/Bg2
 onready var mask := $BackBufferCopy/Mask
@@ -7,17 +9,25 @@ onready var mask := $BackBufferCopy/Mask
 var t: SceneTreeTween
 var is_past := false
 
+var locked := false setget set_locked
+
 
 func _ready() -> void:
 	get_tree().call_group("past", "set_past", false)
 
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("time_travel") and (not t or not t.is_running()):
+	if Input.is_action_just_pressed("time_travel") and \
+			(not t or not t.is_running()) and not locked:
 		toggle_scene()
 
 
+func set_locked(val: bool) -> void:
+	locked = val
+
+
 func toggle_scene() -> void:
+	emit_signal("switched_scene")
 	if t:
 		t.kill()
 	var canvas = get_canvas_transform()
@@ -47,3 +57,17 @@ func switch_children() -> void:
 	bg2.remove_child(c2)
 	bg1.add_child(c2)
 	bg2.add_child(c1)
+
+
+func get_past() -> Node:
+	if is_past:
+		return bg2.get_child(0)
+	else:
+		return bg1.get_child(0)
+
+
+func get_present() -> Node:
+	if is_past:
+		return bg1.get_child(0)
+	else:
+		return bg2.get_child(0)
