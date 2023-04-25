@@ -28,13 +28,14 @@ var scissor := false setget set_scissor
 
 onready var player_states := $PlayerStates
 onready var anim_sprite := $Pivot/AnimatedSprite
-onready var gold_count := $C/C/M/H/GoldCount
+onready var gold_count := $C/HUD/M/H/GoldCount
 onready var dialog_player := $C/DialogPlayer
-onready var gold_icon := $C/C/M/H/GoldIcon
+onready var gold_icon := $C/HUD/M/H/GoldIcon
 onready var pivot := $Pivot
 onready var gold_icon_pos: Vector2 = gold_icon.rect_position
 onready var collision := $CollisionShape2D
 onready var fade := $C/Fade
+onready var hud := $C/HUD
 
 
 func _process(delta: float) -> void:
@@ -109,6 +110,12 @@ func sell_gold(amt: int) -> void:
 	gold_count.text = str(gold)
 
 
+func set_gold(amt: int) -> void:
+	hud.show()
+	gold = amt
+	gold_count.text = str(amt)
+
+
 func get_input() -> void:
 	input = Input.get_action_strength("right") - \
 			Input.get_action_strength("left")
@@ -166,7 +173,9 @@ func disable_collisions() -> void:
 
 func die() -> void:
 	fade.show()
+	set_locked(true)
 	get_tree().call_group("global_camera", "set_focus", self)
+	get_tree().call_group("scene_switcher", "set_locked", true)
 	disable_collisions()
 	var t := create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
 	t.tween_property(fade, "modulate:a", 1.0, 1.5)

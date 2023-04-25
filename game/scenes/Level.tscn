@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://characters/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/SceneSwitcher.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://characters/Friend.tscn" type="PackedScene" id=10]
 [ext_resource path="res://characters/Scientist.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/temp/gun.png" type="Texture" id=12]
+[ext_resource path="res://objects/Rock.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -24,7 +25,7 @@ __meta__ = {
 }
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( -10, 206 )
+position = Vector2( -10, 189 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource( 1 )
@@ -52,7 +53,7 @@ position = Vector2( 249, 226 )
 position = Vector2( 425, 226 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 224, 192 )
+position = Vector2( 224, 200 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 17.0 ],
 "_edit_vertical_guides_": [ 27.0 ]
@@ -116,6 +117,9 @@ flip_h = true
 
 [node name="BulletPos" type="Position2D" parent="PropGun"]
 position = Vector2( -3, 0 )
+
+[node name="Rock" parent="." instance=ExtResource( 13 )]
+visible = false
 
 [connection signal="collected_gold" from="Player" to="." method="_on_Player_collected_gold"]
 [connection signal="body_entered" from="MineFound" to="." method="_on_MineFound_body_entered"]

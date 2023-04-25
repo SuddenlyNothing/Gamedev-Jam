@@ -50,6 +50,17 @@ func toggle_scene() -> void:
 	is_past = not is_past
 
 
+func toggle_scene_no_anim() -> void:
+	switch_children()
+	if is_past:
+		get_tree().call_group("past", "set_past", false)
+		get_tree().call_group("present", "set_present", true)
+	else:
+		get_tree().call_group("present", "set_present", false)
+		get_tree().call_group("past", "set_past", true)
+	is_past = not is_past
+
+
 func switch_children() -> void:
 	var c1 = bg1.get_child(0)
 	bg1.remove_child(c1)

@@ -1,6 +1,8 @@
 extends Area2D
 
-var speed := 500.0
+var actual_speed := 700.0
+
+var speed := 200.0
 var stop_point: float
 var velocity := -speed
 var ignore := false
@@ -11,7 +13,7 @@ onready var friction := pow(speed, 2) / (abs(position.x - stop_point) * 2)
 
 func _physics_process(delta: float) -> void:
 	if ignore:
-		position.x -= speed * delta
+		position.x -= actual_speed * delta
 	else:
 		var friction_amount := friction * delta
 		velocity += friction_amount

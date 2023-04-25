@@ -128,6 +128,7 @@ func reached_waypoint() -> void:
 			if autoplaying:
 				yield(read_autoplay_dialog(), "completed")
 				autoplaying = false
+			emit_signal("reached_waypoint")
 			emit_signal("finished_waypoint")
 	else:
 		emit_signal("reached_waypoint")
