@@ -7,8 +7,7 @@ onready var collision := $CollisionShape2D
 
 
 func set_past(past: bool) -> void:
-	yield(get_tree(), "idle_frame")
-	collision.disabled = past
+	collision.call_deferred("set_disabled", past)
 	if past:
 		position = original_pos
 	else:

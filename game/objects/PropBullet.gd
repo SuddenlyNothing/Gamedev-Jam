@@ -26,9 +26,9 @@ func _physics_process(delta: float) -> void:
 func set_past(past: bool) -> void:
 	ignore = true
 	set_physics_process(past)
-	collision_shape.call_deferred("set_disabled", not past)
+#	collision_shape.call_deferred("set_disabled", not past)
 
 
 func _on_PropBullet_body_entered(body: Node) -> void:
-	body.player_states.call_deferred("set_state", "death")
+	body.kill()
 	queue_free()

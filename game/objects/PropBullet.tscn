@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/temp/bullet.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7.5, 2 )
+extents = Vector2( 7, 2 )
 
 [node name="PropBullet" type="Area2D" groups=["past"]]
 collision_layer = 0
@@ -17,5 +17,6 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -5, 0 )
 shape = SubResource( 1 )
+disabled = true
 
 [connection signal="body_entered" from="." to="." method="_on_PropBullet_body_entered"]

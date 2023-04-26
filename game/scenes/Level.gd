@@ -1,6 +1,7 @@
 extends Node2D
 
 const PropBullet := preload("res://objects/PropBullet.tscn")
+const BulletLine := preload("res://objects/BulletLine.tscn")
 const GUN_OFFSET := Vector2(-6, -8)
 
 onready var player := $Player
@@ -41,17 +42,17 @@ func _ready() -> void:
 		player.position.x = Variables.player_x_pos
 		
 		# Friend
-		friend.position.x = player.position.x + 184
+		friend.position.x = player.position.x + 120
 		
 		# Enemies
 		for enemy in enemies:
 			enemy.show()
 			enemy.set_facing(-1)
-		enemies[0].position.x = player.position.x + 128
-		enemies[1].position.x = player.position.x + 192
-		enemies[2].position.x = player.position.x + 224
+		enemies[0].position.x = player.position.x + 64
+		enemies[1].position.x = player.position.x + 128
+		enemies[2].position.x = player.position.x + 160
 		enemies[1].follow_target = enemies[0]
-		enemies[1].follow_dist = 64
+		enemies[1].follow_dist = 32
 		enemies[2].follow_target = enemies[1]
 		friend.follow_target = enemies[1]
 		friend.follow_dist = 8
@@ -350,4 +351,50 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 	scene_switcher.set_locked(false)
 	get_tree().call_group("global_camera", "set_focus", player)
 	yield(scene_switcher, "switched_scene")
-	
+	scene_switcher.set_locked(true)
+	player.set_locked(true)
+	if player.position.x - player.collision.shape.extents.x <= \
+			prop_bullet.position.x:
+		# Die
+		var bullet_line := BulletLine.instance()
+		bullet_line.from_point = prop_bullet.position
+		bullet_line.to_point = Vector2(player.position.x,
+				prop_bullet.position.y)
+		bullet_line.dur = abs(player.position.x - prop_bullet.position.x) / \
+				prop_bullet.actual_speed
+		prop_bullet.queue_free()
+		add_child(bullet_line)
+		player.kill()
+		return
+	yield(get_tree().create_timer(0.5, false), "timeout")
+	enemies[0].read([
+		"Am I havin' a vision or did that bullet pass through him?"
+	])
+	yield(enemies[0], "dialog_finished")
+	player.read([
+		"Give my friend back! I'll give you the gold"
+	])
+	yield(player, "dialog_finished")
+	enemies[0].read([
+		"Hold yer horses now. Y'all seem to have a contraption that gives y'all superpowers",
+		"I want that"
+	])
+	yield(enemies[0], "dialog_finished")
+	player.read([
+		"No way! It's not yours to take"
+	])
+	yield(player, "dialog_finished")
+	enemies[0].read([
+		"We'll see 'bout that. Meet us at the railroad tracks with yer gadget.",
+		"No funny business, otherwise yer pardner gets it."
+	])
+	yield(enemies[0], "dialog_finished")
+	prop_gun.hide()
+	var size := get_viewport_rect().size
+	enemies[0].goto_pos(player.position + size)
+	yield(enemies[0], "reached_waypoint")
+	for enemy in enemies:
+		enemy.hide()
+	friend.hide()
+	player.set_locked(false)
+	scene_switcher.set_locked(false)

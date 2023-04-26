@@ -53,6 +53,10 @@ func _physics_process(delta: float) -> void:
 			position.x += move_amount * sign(target - position.x)
 
 
+func kill() -> void:
+	player_states.call_deferred("set_state", "death")
+
+
 func set_locked(val: bool) -> void:
 	locked = val
 	if locked:
