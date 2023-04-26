@@ -45,13 +45,19 @@ func _physics_process(delta: float) -> void:
 		set_facing(follow_target.position.x - position.x)
 		if lock_height:
 			if abs(position.x - follow_target.position.x) >= follow_dist:
+				anim_sprite.play("walk")
 				position.x += move_speed * delta * \
 						sign(follow_target.position.x - position.x)
+			else:
+				anim_sprite.play("idle")
 		else:
 			if position.distance_squared_to(follow_target.position) >= \
 					pow(follow_dist, 2):
+				anim_sprite.play("walk")
 				position += position.direction_to(follow_target.position) * \
 						move_speed * delta
+			else:
+				anim_sprite.play("idle")
 	if moving:
 		var move_amount := move_speed * delta
 		if lock_height:
