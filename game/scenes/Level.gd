@@ -2,7 +2,6 @@ extends Node2D
 
 const PropBullet := preload("res://objects/PropBullet.tscn")
 const BulletLine := preload("res://objects/BulletLine.tscn")
-const GUN_OFFSET := Vector2(-6, -8)
 
 onready var player := $Player
 onready var friend := $Friend
@@ -42,24 +41,22 @@ func _ready() -> void:
 		player.position.x = Variables.player_x_pos
 		
 		# Friend
-		friend.position.x = player.position.x + 120
+		friend.hide()
 		
 		# Enemies
 		for enemy in enemies:
 			enemy.show()
 			enemy.set_facing(-1)
 		enemies[0].position.x = player.position.x + 64
+		enemies[1].kidnap = true
 		enemies[1].position.x = player.position.x + 128
 		enemies[2].position.x = player.position.x + 160
 		enemies[1].follow_target = enemies[0]
 		enemies[1].follow_dist = 32
 		enemies[2].follow_target = enemies[1]
-		friend.follow_target = enemies[1]
-		friend.follow_dist = 8
-		friend.following = true
 		
 		# Gun
-		prop_gun.position = enemies[0].position + GUN_OFFSET
+		prop_gun.position = enemies[0].position
 		prop_gun.show()
 		
 		# Bullet
@@ -210,7 +207,7 @@ func _on_Player_collected_gold(amt: int) -> void:
 	])
 	yield(enemies[0], "dialog_finished")
 	get_tree().call_group("global_camera", "set_focus", player,
-			Vector2.RIGHT * 64)
+			Vector2.RIGHT * 32)
 	enemies[0].goto_pos(
 		Vector2(player.position.x + 64, 0)
 	)
@@ -243,22 +240,24 @@ func _on_Player_collected_gold(amt: int) -> void:
 	var pos: Vector2 = enemies[1].position
 	enemies[1].goto_pos(friend.position + Vector2.RIGHT * 8)
 	yield(enemies[1], "reached_waypoint")
-	friend.follow_target = enemies[1]
-	friend.follow_dist = 8
+	enemies[1].kidnap = true
+	friend.hide()
 	enemies[1].goto_pos(pos)
 	yield(enemies[1], "reached_waypoint")
 	enemies[1].set_facing(-1)
-	prop_gun.position = enemies[0].position + GUN_OFFSET
-	prop_gun.show()
+	prop_gun.position = enemies[0].position
 	enemies[0].read([
 		"And, as a little parting gift, here's some lead"
 	])
 	yield(enemies[0], "dialog_finished")
+	prop_gun.show()
+	yield(get_tree().create_timer(0.5, false), "timeout")
 	var past: Node = scene_switcher.get_past()
 	var prop_bullet := PropBullet.instance()
 	prop_bullet.position = bullet_pos.global_position
 	prop_bullet.stop_point = player.position.x + 16
 	past.add_child(prop_bullet)
+	prop_gun.play("shoot")
 	gun_cutscene(prop_bullet, past)
 
 
@@ -367,6 +366,7 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 		player.kill()
 		return
 	yield(get_tree().create_timer(0.5, false), "timeout")
+	prop_gun.hide()
 	enemies[0].read([
 		"Am I havin' a vision or did that bullet pass through him?"
 	])
@@ -389,7 +389,6 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 		"No funny business, otherwise yer pardner gets it."
 	])
 	yield(enemies[0], "dialog_finished")
-	prop_gun.hide()
 	var size := get_viewport_rect().size
 	enemies[0].goto_pos(player.position + size)
 	yield(enemies[0], "reached_waypoint")

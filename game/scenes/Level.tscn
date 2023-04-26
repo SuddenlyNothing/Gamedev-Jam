@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://characters/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/SceneSwitcher.tscn" type="PackedScene" id=2]
@@ -11,12 +11,32 @@
 [ext_resource path="res://scenes/Banner.tscn" type="PackedScene" id=9]
 [ext_resource path="res://characters/Friend.tscn" type="PackedScene" id=10]
 [ext_resource path="res://characters/Scientist.tscn" type="PackedScene" id=11]
-[ext_resource path="res://assets/temp/gun.png" type="Texture" id=12]
 [ext_resource path="res://objects/Rock.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/characters/spr_enemy_gun.png" type="Texture" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 [sub_resource type="RectangleShape2D" id=2]
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 14 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 14 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 14 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 4 ) ],
+"loop": false,
+"name": "shoot",
+"speed": 5.0
+} ]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 6 )
@@ -111,13 +131,16 @@ position = Vector2( 0, 60 )
 visible = false
 position = Vector2( 0, 60 )
 
-[node name="PropGun" type="Sprite" parent="."]
+[node name="PropGun" type="AnimatedSprite" parent="."]
 visible = false
-texture = ExtResource( 12 )
+frames = SubResource( 3 )
+animation = "shoot"
+speed_scale = 2.0
+offset = Vector2( 5, -16 )
 flip_h = true
 
 [node name="BulletPos" type="Position2D" parent="PropGun"]
-position = Vector2( -3, 0 )
+position = Vector2( -8, -8 )
 
 [node name="Rock" parent="." instance=ExtResource( 13 )]
 visible = false

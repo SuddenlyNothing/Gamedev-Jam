@@ -45,19 +45,19 @@ func _physics_process(delta: float) -> void:
 		set_facing(follow_target.position.x - position.x)
 		if lock_height:
 			if abs(position.x - follow_target.position.x) >= follow_dist:
-				anim_sprite.play("walk")
+				play_anim("walk")
 				position.x += move_speed * delta * \
 						sign(follow_target.position.x - position.x)
 			else:
-				anim_sprite.play("idle")
+				play_anim("idle")
 		else:
 			if position.distance_squared_to(follow_target.position) >= \
 					pow(follow_dist, 2):
-				anim_sprite.play("walk")
+				play_anim("walk")
 				position += position.direction_to(follow_target.position) * \
 						move_speed * delta
 			else:
-				anim_sprite.play("idle")
+				play_anim("idle")
 	if moving:
 		var move_amount := move_speed * delta
 		if lock_height:
@@ -84,7 +84,7 @@ func set_facing(input: int) -> void:
 
 
 func read(dialog: Array) -> void:
-	anim_sprite.play("talk")
+	play_anim("talk")
 	dialog_player.read(dialog)
 
 
@@ -109,19 +109,19 @@ func goto_next() -> void:
 	target = waypoints.get_next_point()
 	set_facing(target.x - position.x)
 	moving = true
-	anim_sprite.play("walk")
+	play_anim("walk")
 
 
 func goto_pos(pos: Vector2) -> void:
 	set_facing(pos.x - position.x)
 	moving = true
-	anim_sprite.play("walk")
+	play_anim("walk")
 	target = pos
 
 
 func reached_waypoint() -> void:
 	moving = false
-	anim_sprite.play("idle")
+	play_anim("idle")
 	if waypoints:
 		if waypoints.has_next_point():
 			if autoplaying:
@@ -140,9 +140,13 @@ func reached_waypoint() -> void:
 		emit_signal("reached_waypoint")
 
 
+func play_anim(anim: String) -> void:
+	anim_sprite.play(anim)
+
+
 func read_autoplay_dialog() -> void:
 	if len(autoplay_dialog) > autoplay_ind and autoplay_dialog[autoplay_ind]:
-		anim_sprite.play("talk")
+		play_anim("talk")
 		dialog_player.read(autoplay_dialog[autoplay_ind])
 		autoplay_ind += 1
 		yield(dialog_player, "dialog_finished")
@@ -152,5 +156,5 @@ func read_autoplay_dialog() -> void:
 
 
 func _on_DialogPlayer_dialog_finished() -> void:
-	anim_sprite.play("idle")
+	play_anim("idle")
 	emit_signal("dialog_finished")

@@ -1,22 +1,33 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/present/Shop.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/environment/abandoned_cave_bg.png" type="Texture" id=2]
 [ext_resource path="res://objects/Greebles.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/environment/shop_bg.png" type="Texture" id=4]
 
 [node name="Present" type="Node2D"]
 __meta__ = {
 "_edit_horizontal_guides_": [ 200.0, 60.0 ]
 }
 
-[node name="Bg" type="Sprite" parent="."]
+[node name="MineBg" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 6, 1200, 90 )
 
+[node name="MineBg2" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 6, 190, 90 )
+
 [node name="Greebles" parent="." instance=ExtResource( 3 )]
-tile_data = PoolIntArray( 196614, 536870915, 1, 196620, 2, 0, 196625, 536870915, 0, 196626, 536870914, 0, 196627, 536870915, 0, 196637, 536870915, 1, 196639, 536870914, 0, 196641, 536870915, 0 )
+tile_data = PoolIntArray( 196620, 2, 0, 196625, 536870915, 0, 196626, 536870914, 0, 196627, 536870915, 0, 196637, 536870915, 1, 196639, 536870914, 0, 196641, 536870915, 0 )
 
 [node name="Shop" parent="." instance=ExtResource( 1 )]
 position = Vector2( 61, 60 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -34.0 ],
+"_edit_vertical_guides_": [ 26.0, -26.0, 52.0 ]
+}
