@@ -11,5 +11,5 @@ dest_files=[ "res://.import/buy merchant.mp3-09351e3d9e59f7da90dd3bb8751cb665.mp
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

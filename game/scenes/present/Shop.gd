@@ -16,6 +16,7 @@ var player: Node
 var item: String
 var t: SceneTreeTween
 
+onready var purchased_sfx := $PurchaseSFX
 onready var collisions := [
 	$Gun/CollisionShape2D,
 	$Shield/CollisionShape2D,
@@ -47,6 +48,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and item and \
 			player.gold >= Prices[item]:
 		player.sell_gold(Prices[item])
+		purchased_sfx.play()
 		match item:
 			"GUN":
 				player.gun = true
