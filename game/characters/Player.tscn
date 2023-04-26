@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://characters/Player.gd" type="Script" id=1]
 [ext_resource path="res://characters/PlayerStates.gd" type="Script" id=2]
@@ -7,18 +7,52 @@
 [ext_resource path="res://assets/characters/spr_player_running.png" type="Texture" id=5]
 [ext_resource path="res://assets/temp/gold.png" type="Texture" id=6]
 [ext_resource path="res://utils/DialogPlayer.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/characters/spr_player_jackhammer.png" type="Texture" id=8]
+[ext_resource path="res://assets/characters/spr_player_death.png" type="Texture" id=9]
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 9 )
 region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 9 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 9 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 9 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 9 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 9 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 9 )
+region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 9 )
+region = Rect2( 224, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 8 )
+region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
@@ -58,8 +92,8 @@ region = Rect2( 160, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ SubResource( 13 ) ],
-"loop": true,
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
+"loop": false,
 "name": "death",
 "speed": 5.0
 }, {
@@ -68,7 +102,7 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 14 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
 "name": "mine",
 "speed": 5.0
@@ -85,7 +119,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3, 8 )
+extents = Vector2( 3, 14.5 )
 
 [node name="Player" type="KinematicBody2D" groups=["player"]]
 collision_layer = 2
@@ -100,11 +134,11 @@ position = Vector2( 0, -8 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Pivot"]
 position = Vector2( -1, -8 )
 frames = SubResource( 2 )
-animation = "idle"
+animation = "mine"
 speed_scale = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -8 )
+position = Vector2( 0, -14.5 )
 shape = SubResource( 1 )
 
 [node name="C" type="CanvasLayer" parent="."]
