@@ -101,7 +101,7 @@ shape = SubResource( 2 )
 [node name="EnemyLeader" parent="." instance=ExtResource( 4 )]
 visible = false
 position = Vector2( 0, 60 )
-dialog_color = Color( 0.745098, 0.156863, 0.156863, 1 )
+dialog_color = Color( 1, 0.364706, 0.364706, 1 )
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
 visible = false

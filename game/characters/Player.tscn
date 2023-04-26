@@ -134,7 +134,7 @@ position = Vector2( 0, -8 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Pivot"]
 position = Vector2( -1, -8 )
 frames = SubResource( 2 )
-animation = "mine"
+animation = "idle"
 speed_scale = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
