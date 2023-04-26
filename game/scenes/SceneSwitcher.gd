@@ -40,7 +40,7 @@ func toggle_scene() -> void:
 		get_tree().call_group("present", "set_present", false)
 	t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
 	t.tween_callback(mask, "show")
-	t.tween_property(mask, "scale", Vector2.ONE * 3, 0.3).from(Vector2.ZERO)
+	t.tween_property(mask, "scale", Vector2.ONE, 0.3).from(Vector2.ZERO)
 	t.tween_callback(self, "switch_children")
 	t.tween_callback(mask, "hide")
 	if is_past:

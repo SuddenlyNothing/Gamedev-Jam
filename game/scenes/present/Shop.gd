@@ -63,8 +63,9 @@ func _input(event: InputEvent) -> void:
 
 func set_present(present: bool) -> void:
 	set_process_input(present)
-	for collision in collisions:
-		collision.call_deferred("set_disabled", not present)
+	for i in len(collisions):
+		collisions[i].call_deferred("set_disabled",
+				not present or purchased[i].visible)
 
 
 func show_price() -> void:

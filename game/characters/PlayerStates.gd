@@ -2,6 +2,8 @@ extends StateMachine
 
 var died := false
 
+onready var mine_sfx := $MineSFX
+
 
 func _ready() -> void:
 	add_state("idle")
@@ -53,6 +55,7 @@ func _enter_state(new_state: String, old_state) -> void:
 			parent.play_anim("walk")
 		states.mine:
 			parent.play_anim("mine")
+			mine_sfx.play()
 		states.death:
 			parent.play_anim("death")
 			parent.die()
@@ -68,7 +71,7 @@ func _exit_state(old_state, new_state: String) -> void:
 		states.walk:
 			pass
 		states.mine:
-			pass
+			mine_sfx.stop()
 
 
 # Sets state while calling _exit_state and _enter_state

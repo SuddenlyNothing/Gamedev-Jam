@@ -262,6 +262,7 @@ func _on_Player_collected_gold(amt: int) -> void:
 
 
 func gun_cutscene(prop_bullet: Node, past: Node) -> void:
+	$ShotSFX.play()
 	get_tree().call_group("global_camera", "set_zoom", Vector2.ONE / 2)
 	get_tree().call_group("global_camera", "set_focus", prop_bullet,
 			Vector2.DOWN * 15)
@@ -397,3 +398,5 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 	friend.hide()
 	player.set_locked(false)
 	scene_switcher.set_locked(false)
+	banner.display("Save Your Friend")
+	get_tree().call_group("mine", "set_max_gold", 15)

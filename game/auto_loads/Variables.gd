@@ -13,4 +13,4 @@ var user_keys := PoolStringArray([
 var input_format := {}
 
 var intro_cutscene := true
-var player_x_pos := 280
+var player_x_pos := 500

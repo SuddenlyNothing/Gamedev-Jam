@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/The Wild Wild West mp3.mp3-0c225b3b972519470d66db5d0936941a.mp3str"
+
+[deps]
+
+source_file="res://assets/music/The Wild Wild West mp3.mp3"
+dest_files=[ "res://.import/The Wild Wild West mp3.mp3-0c225b3b972519470d66db5d0936941a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

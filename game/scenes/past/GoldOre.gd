@@ -14,13 +14,15 @@ onready var collision_shape := $CollisionShape2D
 
 
 func _ready() -> void:
+	if randf() > 0.5:
+		sprite.flip_h = true
 	set_process(false)
 
 
 func _process(delta: float) -> void:
 	time += delta
 	if time > interval:
-		sprite.position = origin + Vector2((randf() - 0.5) * 5,
+		sprite.position = origin + Vector2((randf() - 0.5) * 2,
 				(randf() - 0.5) * 5)
 		time = fmod(time, interval)
 

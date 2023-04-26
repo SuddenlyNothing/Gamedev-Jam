@@ -1,20 +1,38 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/past/MineArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/environment/cave_bg.png" type="Texture" id=2]
 [ext_resource path="res://objects/Greebles.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/environment/bar_bg.png" type="Texture" id=4]
+[ext_resource path="res://assets/environment/bar_passage.png" type="Texture" id=5]
+[ext_resource path="res://assets/environment/bar_passage_over.png" type="Texture" id=6]
+[ext_resource path="res://objects/OverDisappear.gd" type="Script" id=7]
+[ext_resource path="res://assets/environment/rail_past.png" type="Texture" id=8]
+[ext_resource path="res://assets/environment/cave_passage_past.png" type="Texture" id=9]
+[ext_resource path="res://assets/environment/cave_passage_past_over.png" type="Texture" id=10]
+[ext_resource path="res://assets/environment/bar_keep.png" type="Texture" id=11]
 
 [node name="Past" type="Node2D"]
 __meta__ = {
-"_edit_horizontal_guides_": [ 60.0 ]
+"_edit_horizontal_guides_": [ 60.0 ],
+"_edit_vertical_guides_": [ 244.0, 400.0, 900.0 ]
 }
 
+[node name="RailBg" type="Sprite" parent="."]
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 2, 1200, 90 )
+
 [node name="MineBg" type="Sprite" parent="."]
+position = Vector2( 400, 0 )
 texture = ExtResource( 2 )
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 6, 1200, 90 )
+region_rect = Rect2( 0, 6, 500, 90 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="BarBg" type="Sprite" parent="."]
 texture = ExtResource( 4 )
@@ -22,8 +40,46 @@ centered = false
 region_enabled = true
 region_rect = Rect2( 0, 6, 190, 90 )
 
+[node name="BarPassage" type="Sprite" parent="."]
+position = Vector2( 217, 42 )
+texture = ExtResource( 5 )
+
+[node name="BarPassageOver" type="Sprite" parent="."]
+position = Vector2( 217, 42 )
+z_index = 100
+texture = ExtResource( 6 )
+script = ExtResource( 7 )
+is_present = false
+
 [node name="Greebles" parent="." instance=ExtResource( 3 )]
-tile_data = PoolIntArray( 196637, 536870913, 1, 196638, 536870912, 1 )
 
 [node name="MineArea" parent="." instance=ExtResource( 1 )]
-position = Vector2( 343, 60 )
+position = Vector2( 562, 60 )
+
+[node name="CavePassagePast" type="Sprite" parent="."]
+position = Vector2( 396, 38 )
+texture = ExtResource( 9 )
+
+[node name="CavePassagePastOver" type="Sprite" parent="."]
+position = Vector2( 387, 54 )
+z_index = 100
+texture = ExtResource( 10 )
+script = ExtResource( 7 )
+is_present = false
+
+[node name="CavePassagePast2" type="Sprite" parent="."]
+position = Vector2( 903, 38 )
+texture = ExtResource( 9 )
+flip_h = true
+
+[node name="CavePassagePastOver2" type="Sprite" parent="."]
+position = Vector2( 912, 54 )
+z_index = 100
+texture = ExtResource( 10 )
+flip_h = true
+script = ExtResource( 7 )
+is_present = false
+
+[node name="BarKeep" type="Sprite" parent="."]
+position = Vector2( 74, 33 )
+texture = ExtResource( 11 )

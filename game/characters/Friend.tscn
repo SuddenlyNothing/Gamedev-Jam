@@ -66,5 +66,4 @@ animations = [ {
 [node name="Friend" instance=ExtResource( 1 )]
 
 [node name="AnimatedSprite" parent="Pivot" index="0"]
-position = Vector2( -1, -16 )
 frames = SubResource( 11 )
