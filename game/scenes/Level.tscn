@@ -91,7 +91,7 @@ position = Vector2( 167, 124 )
 [node name="Banner" parent="C" instance=ExtResource( 9 )]
 
 [node name="MineFound" type="Area2D" parent="."]
-position = Vector2( 265, 50 )
+position = Vector2( 202, 50 )
 collision_layer = 0
 collision_mask = 2
 

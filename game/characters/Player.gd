@@ -4,7 +4,7 @@ signal collected_gold(amt)
 signal dialog_finished
 
 export(float) var walk_acceleration := 300.0
-export(float) var walk_max_speed := 150.0
+export(float) var walk_max_speed := 80.0
 export(float) var walk_friction := 1200.0
 export(float) var walk_turn_mult := 3.0
 

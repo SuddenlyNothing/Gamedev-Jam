@@ -7,7 +7,7 @@ signal dialog_finished
 export(bool) var lock_height := true
 export(bool) var autoplay := false
 export(Color) var dialog_color: Color
-export(float) var move_speed := 150.0
+export(float) var move_speed := 80.0
 export(float) var follow_dist := 24.0
 export(NodePath) var waypoints_path: NodePath setget set_waypoints_path
 export(Array, Array, String, MULTILINE) var autoplay_dialog: Array setget \
