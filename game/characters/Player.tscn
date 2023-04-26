@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://characters/Player.gd" type="Script" id=1]
 [ext_resource path="res://characters/PlayerStates.gd" type="Script" id=2]
@@ -10,6 +10,11 @@
 [ext_resource path="res://assets/characters/spr_player_jackhammer.png" type="Texture" id=8]
 [ext_resource path="res://assets/characters/spr_player_death.png" type="Texture" id=9]
 [ext_resource path="res://assets/sfx/jackhammer loop.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/characters/spr_player_gun.png" type="Texture" id=11]
+[ext_resource path="res://utils/MultiAudioPlayer.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/sfx/shot1.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/sfx/No ammo only gun.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/characters/spr_player_shield.png" type="Texture" id=15]
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 9 )
@@ -119,10 +124,53 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 11 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 11 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=27]
+animations = [ {
+"frames": [ SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 28 ) ],
+"loop": false,
+"name": "shoot",
+"speed": 5.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3, 14.5 )
 
-[node name="Player" type="KinematicBody2D" groups=["player"]]
+[sub_resource type="StyleBoxFlat" id=25]
+bg_color = Color( 1, 0.737255, 0.403922, 1 )
+border_width_right = 1
+border_color = Color( 1, 1, 0.921569, 1 )
+
+[sub_resource type="StyleBoxFlat" id=26]
+bg_color = Color( 0.690196, 0.188235, 0.360784, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.164706, 0.117647, 0.207843, 1 )
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+expand_margin_top = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="AudioStreamRandomPitch" id=31]
+resource_local_to_scene = true
+
+[sub_resource type="AudioStreamRandomPitch" id=32]
+resource_local_to_scene = true
+
+[node name="Player" type="KinematicBody2D" groups=["past", "player"]]
 collision_layer = 2
 script = ExtResource( 1 )
 
@@ -142,6 +190,27 @@ frames = SubResource( 2 )
 animation = "idle"
 speed_scale = 2.0
 
+[node name="Gun" type="AnimatedSprite" parent="Pivot"]
+visible = false
+position = Vector2( -5, -8 )
+frames = SubResource( 27 )
+animation = "shoot"
+speed_scale = 3.0
+
+[node name="BulletPos" type="Position2D" parent="Pivot/Gun"]
+position = Vector2( 14, 8 )
+
+[node name="GunCast" type="RayCast2D" parent="Pivot"]
+enabled = true
+cast_to = Vector2( 80, 0 )
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Shield" type="Sprite" parent="Pivot"]
+visible = false
+position = Vector2( 0, -8 )
+texture = ExtResource( 15 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -14.5 )
 shape = SubResource( 1 )
@@ -149,46 +218,73 @@ shape = SubResource( 1 )
 [node name="C" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Control" parent="C"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="M" type="MarginContainer" parent="C/HUD"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/margin_right = 120
-custom_constants/margin_bottom = 80
+custom_constants/margin_right = 5
+custom_constants/margin_top = 3
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 78
 
 [node name="ColorRect" type="ColorRect" parent="C/HUD/M"]
 visible = false
-margin_right = 40.0
-margin_bottom = 10.0
+margin_left = 5.0
+margin_top = 3.0
+margin_right = 155.0
+margin_bottom = 12.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 
 [node name="H" type="HBoxContainer" parent="C/HUD/M"]
-margin_right = 40.0
-margin_bottom = 10.0
+margin_left = 5.0
+margin_top = 3.0
+margin_right = 155.0
+margin_bottom = 12.0
 custom_constants/separation = 2
 
-[node name="GoldIcon" type="TextureRect" parent="C/HUD/M/H"]
-margin_left = 4.0
-margin_top = 1.0
-margin_right = 12.0
+[node name="H" type="HBoxContainer" parent="C/HUD/M/H"]
+margin_right = 20.0
 margin_bottom = 9.0
+rect_min_size = Vector2( 20, 0 )
+custom_constants/separation = 2
+
+[node name="GoldIcon" type="TextureRect" parent="C/HUD/M/H/H"]
+margin_right = 8.0
+margin_bottom = 8.0
 size_flags_horizontal = 10
 size_flags_vertical = 6
 texture = ExtResource( 6 )
 
-[node name="GoldCount" type="Label" parent="C/HUD/M/H"]
-margin_left = 14.0
-margin_top = 2.0
-margin_right = 18.0
-margin_bottom = 10.0
+[node name="GoldCount" type="Label" parent="C/HUD/M/H/H"]
+margin_left = 10.0
+margin_top = 1.0
+margin_right = 14.0
+margin_bottom = 9.0
 rect_min_size = Vector2( 0, 8 )
 size_flags_horizontal = 2
 size_flags_vertical = 10
 size_flags_stretch_ratio = 2.0
 text = "0"
+
+[node name="CountdownBar" type="ProgressBar" parent="C/HUD/M/H"]
+visible = false
+margin_left = 22.0
+margin_top = 2.0
+margin_right = 150.0
+margin_bottom = 6.0
+rect_min_size = Vector2( 0, 4 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_styles/fg = SubResource( 25 )
+custom_styles/bg = SubResource( 26 )
+max_value = 1.0
+step = 0.0
+value = 1.0
+percent_visible = false
 
 [node name="DialogPlayer" parent="C" instance=ExtResource( 7 )]
 
@@ -199,4 +295,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 
+[node name="CountdownTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+
+[node name="ShootSFX" parent="." instance=ExtResource( 12 )]
+stream = SubResource( 31 )
+audio_streams = [ ExtResource( 13 ) ]
+
+[node name="NoAmmoSFX" parent="." instance=ExtResource( 12 )]
+stream = SubResource( 32 )
+audio_streams = [ ExtResource( 14 ) ]
+
+[connection signal="animation_finished" from="Pivot/Gun" to="." method="_on_Gun_animation_finished"]
 [connection signal="dialog_finished" from="C/DialogPlayer" to="." method="_on_DialogPlayer_dialog_finished"]
+[connection signal="timeout" from="CountdownTimer" to="." method="_on_CountdownTimer_timeout"]

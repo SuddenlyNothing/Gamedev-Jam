@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://characters/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/SceneSwitcher.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://assets/sfx/shot1.wav" type="AudioStream" id=12]
 [ext_resource path="res://objects/Rock.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/characters/spr_enemy_gun.png" type="Texture" id=14]
+[ext_resource path="res://assets/music/battle song.mp3" type="AudioStream" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -43,13 +44,28 @@ animations = [ {
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 60.0 ],
-"_edit_vertical_guides_": [ 279.0 ]
+"_edit_vertical_guides_": [ 279.0, 1800.0 ]
 }
+menu_scene = "res://scenes/MainMeni.tscn"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( -10, 50 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2( 1810, 50 )
+z_index = 163
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource( 1 )
+
+[node name="PreventSkip" type="StaticBody2D" parent="."]
+position = Vector2( 883, 50 )
+z_index = 168
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PreventSkip"]
 shape = SubResource( 1 )
 
 [node name="SceneSwitcher" parent="." instance=ExtResource( 2 )]
@@ -89,7 +105,7 @@ position = Vector2( 289, 60 )
 __meta__ = {
 "_editor_description_": ""
 }
-dialog_color = Color( 0.8, 0.517647, 0.517647, 1 )
+dialog_color = Color( 0.607843, 0.74902, 0.670588, 1 )
 waypoints_path = NodePath("../Waypoints2")
 
 [node name="Appear" parent="Scientist" instance=ExtResource( 8 )]
@@ -122,7 +138,6 @@ shape = SubResource( 2 )
 [node name="EnemyLeader" parent="." instance=ExtResource( 4 )]
 visible = false
 position = Vector2( 0, 60 )
-dialog_color = Color( 1, 0.364706, 0.364706, 1 )
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
 visible = false
@@ -149,6 +164,11 @@ visible = false
 [node name="ShotSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
 bus = "SFX"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+autoplay = true
+bus = "Music"
 
 [connection signal="collected_gold" from="Player" to="." method="_on_Player_collected_gold"]
 [connection signal="body_entered" from="MineFound" to="." method="_on_MineFound_body_entered"]

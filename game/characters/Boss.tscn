@@ -1,0 +1,93 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://characters/CharacterPuppet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/characters/spr_boss_attack.png" type="Texture" id=2]
+[ext_resource path="res://characters/Boss.gd" type="Script" id=3]
+[ext_resource path="res://assets/characters/spr_boss_talking.png" type="Texture" id=4]
+[ext_resource path="res://assets/characters/spr_boss_idle.png" type="Texture" id=5]
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 4 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 4 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 2 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 12 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
+"loop": true,
+"name": "talk",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=22]
+extents = Vector2( 5, 7 )
+
+[node name="Boss" groups=["past"] instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+dialog_color = Color( 1, 0.364706, 0.364706, 1 )
+move_speed = 70.0
+lock_spot = 0.0
+
+[node name="AnimatedSprite" parent="Pivot" index="0"]
+frames = SubResource( 11 )
+
+[node name="Area2D" type="Area2D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2( 0, -7 )
+shape = SubResource( 22 )
+disabled = true
+
+[node name="ChargeWait" type="Timer" parent="." index="3"]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="ChargeWait" to="." method="_on_ChargeWait_timeout"]

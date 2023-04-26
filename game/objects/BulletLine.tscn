@@ -5,5 +5,5 @@
 [node name="BulletLine" type="Line2D"]
 points = PoolVector2Array( 0, 0, 0, 0 )
 width = 2.0
-default_color = Color( 0.87451, 0.443137, 0.14902, 1 )
+default_color = Color( 0.94902, 0.65098, 0.368627, 1 )
 script = ExtResource( 1 )

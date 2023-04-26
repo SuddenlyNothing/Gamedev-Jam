@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/buy merchant.mp3-09351e3d9e59f7da90dd3bb8751cb665.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/buy merchant.mp3"
+dest_files=[ "res://.import/buy merchant.mp3-09351e3d9e59f7da90dd3bb8751cb665.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

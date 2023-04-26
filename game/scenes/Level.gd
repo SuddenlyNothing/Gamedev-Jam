@@ -3,6 +3,8 @@ extends Node2D
 const PropBullet := preload("res://objects/PropBullet.tscn")
 const BulletLine := preload("res://objects/BulletLine.tscn")
 
+export(String, FILE, "*.tscn") var menu_scene
+
 onready var player := $Player
 onready var friend := $Friend
 onready var scientist := $Scientist
@@ -15,6 +17,7 @@ onready var prop_gun := $PropGun
 onready var bullet_pos := $PropGun/BulletPos
 onready var dialog_player := $C/DialogPlayer
 onready var rock := $Rock
+onready var prevent_skip_collision := $PreventSkip/CollisionShape2D
 
 onready var enemies := [
 	$EnemyLeader, $Enemy, $Enemy2
@@ -22,6 +25,7 @@ onready var enemies := [
 
 
 func _ready() -> void:
+	scene_switcher.get_past().connect("won", self, "_on_won")
 	yield(get_tree(), "idle_frame")
 	player.set_locked(true)
 	scene_switcher.set_locked(true)
@@ -180,7 +184,7 @@ func _on_MineFound_body_entered(body: Node) -> void:
 
 
 func _on_Player_collected_gold(amt: int) -> void:
-	if amt != 5:
+	if amt != 5 or Variables.intro_cutscene:
 		return
 	player.set_locked(true)
 	player.set_facing(1)
@@ -308,8 +312,7 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 	yield(scientist, "dialog_finished")
 	player.set_facing(-1)
 	scientist.read([
-		"I haven't told you the one caveat to the device",
-		"You can only go to the past for a short duration",
+		"I haven't told you the one caveat to the device. It only lasts for a short duration",
 		"Let's see how much time you have left",
 	])
 	yield(scientist, "dialog_finished")
@@ -355,7 +358,6 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 	player.set_locked(true)
 	if player.position.x - player.collision.shape.extents.x <= \
 			prop_bullet.position.x:
-		# Die
 		var bullet_line := BulletLine.instance()
 		bullet_line.from_point = prop_bullet.position
 		bullet_line.to_point = Vector2(player.position.x,
@@ -366,6 +368,7 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 		add_child(bullet_line)
 		player.kill()
 		return
+	player.set_facing(1)
 	yield(get_tree().create_timer(0.5, false), "timeout")
 	prop_gun.hide()
 	enemies[0].read([
@@ -393,6 +396,8 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 	var size := get_viewport_rect().size
 	enemies[0].goto_pos(player.position + size)
 	yield(enemies[0], "reached_waypoint")
+	player.countdown_started = true
+	prevent_skip_collision.call_deferred("set_disabled", true)
 	for enemy in enemies:
 		enemy.hide()
 	friend.hide()
@@ -400,3 +405,22 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 	scene_switcher.set_locked(false)
 	banner.display("Save Your Friend")
 	get_tree().call_group("mine", "set_max_gold", 15)
+
+
+func _on_won(pos: Vector2) -> void:
+	scene_switcher.get_past().remove_child(friend)
+	add_child(friend)
+	friend.position = pos
+	friend.show()
+	friend.set_facing(player.position.x - friend.position.x)
+	friend.read([
+		"Thanks for saving me!",
+		"[shake]I was so scared"
+	])
+	yield(friend, "dialog_finished")
+	player.read([
+		"It was no problem",
+		"What was a problem was the fact that [shake]I DIDN'T GET RICH"
+	])
+	yield(player, "dialog_finished")
+	SceneHandler.goto_scene(menu_scene)

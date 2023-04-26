@@ -2,6 +2,8 @@ extends Area2D
 
 const GRAVITY := 400.0
 
+export(bool) var has_velocity := true
+
 var pickup_pos: Vector2
 var offset: Vector2
 
@@ -12,6 +14,11 @@ var player: Node2D
 onready var ground := position.y
 onready var collect_sfx := $CollectSFX
 onready var collision_shape := $CollisionShape2D
+
+
+func _ready() -> void:
+	if not has_velocity:
+		velocity = Vector2()
 
 
 func _process(delta: float) -> void:

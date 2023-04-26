@@ -6,4 +6,5 @@
 offset = Vector2( 0, -15 )
 current = true
 limit_left = 0
+limit_right = 1800
 script = ExtResource( 1 )

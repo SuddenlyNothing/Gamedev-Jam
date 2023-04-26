@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/only guitars.mp3-ba66123946e0bb40716390195dfec33a.mp3str"
+
+[deps]
+
+source_file="res://assets/music/only guitars.mp3"
+dest_files=[ "res://.import/only guitars.mp3-ba66123946e0bb40716390195dfec33a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

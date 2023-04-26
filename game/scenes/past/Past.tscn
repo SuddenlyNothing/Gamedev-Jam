@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scenes/past/MineArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/environment/cave_bg.png" type="Texture" id=2]
@@ -11,18 +11,75 @@
 [ext_resource path="res://assets/environment/cave_passage_past.png" type="Texture" id=9]
 [ext_resource path="res://assets/environment/cave_passage_past_over.png" type="Texture" id=10]
 [ext_resource path="res://assets/environment/bar_keep.png" type="Texture" id=11]
+[ext_resource path="res://objects/PastNotify.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/past/Past.gd" type="Script" id=13]
+[ext_resource path="res://characters/EnemyPuppet.tscn" type="PackedScene" id=14]
+[ext_resource path="res://objects/GunDetector.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/past/Gold.tscn" type="PackedScene" id=16]
+[ext_resource path="res://objects/Train.tscn" type="PackedScene" id=17]
+[ext_resource path="res://assets/characters/spr_friend_tied.png" type="Texture" id=18]
+[ext_resource path="res://characters/Boss.tscn" type="PackedScene" id=19]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 18 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 18 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 18 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 18 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 18 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 18 )
+region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 18 )
+region = Rect2( 224, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 18 )
+region = Rect2( 256, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 18 )
+region = Rect2( 288, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="Past" type="Node2D"]
+script = ExtResource( 13 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 60.0 ],
-"_edit_vertical_guides_": [ 244.0, 400.0, 900.0 ]
+"_edit_vertical_guides_": [ 244.0, 400.0, 900.0, 1050.0, 1291.0, 1570.0, 1666.0 ]
 }
 
 [node name="RailBg" type="Sprite" parent="."]
 texture = ExtResource( 8 )
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 2, 1200, 90 )
+region_rect = Rect2( 0, 2, 2400, 90 )
 
 [node name="MineBg" type="Sprite" parent="."]
 position = Vector2( 400, 0 )
@@ -54,7 +111,7 @@ is_present = false
 [node name="Greebles" parent="." instance=ExtResource( 3 )]
 
 [node name="MineArea" parent="." instance=ExtResource( 1 )]
-position = Vector2( 562, 60 )
+position = Vector2( 617, 60 )
 
 [node name="CavePassagePast" type="Sprite" parent="."]
 position = Vector2( 396, 38 )
@@ -83,3 +140,161 @@ is_present = false
 [node name="BarKeep" type="Sprite" parent="."]
 position = Vector2( 74, 33 )
 texture = ExtResource( 11 )
+
+[node name="PastNotify" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1045, 50 )
+
+[node name="Gold" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1085, 56 )
+has_velocity = false
+
+[node name="Gold2" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1093, 60 )
+has_velocity = false
+
+[node name="Gold3" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1077, 61 )
+has_velocity = false
+
+[node name="Gold4" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1110, 63 )
+has_velocity = false
+
+[node name="Gold5" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1066, 60 )
+has_velocity = false
+
+[node name="Gold6" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1074, 58 )
+has_velocity = false
+
+[node name="Gold7" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1082, 61 )
+has_velocity = false
+
+[node name="Gold8" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1100, 59 )
+has_velocity = false
+
+[node name="Gold9" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1062, 61 )
+has_velocity = false
+
+[node name="Gold10" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1111, 58 )
+has_velocity = false
+
+[node name="EnemyPuppet" parent="." instance=ExtResource( 14 )]
+position = Vector2( 1069, 60 )
+start_left = true
+
+[node name="EnemyPuppet2" parent="." instance=ExtResource( 14 )]
+position = Vector2( 1087, 60 )
+start_left = true
+
+[node name="EnemyPuppet3" parent="." instance=ExtResource( 14 )]
+position = Vector2( 1105, 60 )
+start_left = true
+
+[node name="Gold11" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1093, 57 )
+has_velocity = false
+
+[node name="Gold12" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1101, 61 )
+has_velocity = false
+
+[node name="Gold13" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1085, 62 )
+has_velocity = false
+
+[node name="Gold14" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1118, 64 )
+has_velocity = false
+
+[node name="Gold15" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1074, 61 )
+has_velocity = false
+
+[node name="Gold16" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1082, 59 )
+has_velocity = false
+
+[node name="Gold17" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1090, 62 )
+has_velocity = false
+
+[node name="Gold18" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1108, 60 )
+has_velocity = false
+
+[node name="Gold19" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1070, 62 )
+has_velocity = false
+
+[node name="Gold20" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1119, 59 )
+has_velocity = false
+
+[node name="Gold21" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1128, 60 )
+has_velocity = false
+
+[node name="Gold22" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1135, 62 )
+has_velocity = false
+
+[node name="Gold23" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1144, 60 )
+has_velocity = false
+
+[node name="Gold24" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1152, 58 )
+has_velocity = false
+
+[node name="Gold25" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1150, 62 )
+has_velocity = false
+
+[node name="GunDetector" parent="." instance=ExtResource( 15 )]
+position = Vector2( 1076, 50 )
+
+[node name="EnemyPuppet4" parent="." instance=ExtResource( 14 )]
+position = Vector2( 1392, 60 )
+start_left = true
+
+[node name="EnemyPuppet5" parent="." instance=ExtResource( 14 )]
+position = Vector2( 1411, 60 )
+start_left = true
+
+[node name="EnemyPuppet6" parent="." instance=ExtResource( 14 )]
+position = Vector2( 1430, 60 )
+start_left = true
+
+[node name="PastNotify2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1300, 50 )
+
+[node name="Train" parent="." instance=ExtResource( 17 )]
+position = Vector2( 1678, 66 )
+
+[node name="Friend" type="AnimatedSprite" parent="."]
+position = Vector2( 1678, 46 )
+frames = SubResource( 11 )
+frame = 8
+speed_scale = 2.0
+playing = true
+
+[node name="PastNotify3" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1580, 50 )
+
+[node name="Boss" parent="." instance=ExtResource( 19 )]
+position = Vector2( 1648, 60 )
+
+[node name="PastNotify4" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1677, 50 )
+
+[connection signal="body_entered" from="PastNotify" to="." method="_on_PastNotify_body_entered"]
+[connection signal="hit" from="GunDetector" to="." method="_on_GunDetector_hit"]
+[connection signal="body_entered" from="PastNotify2" to="." method="_on_PastNotify2_body_entered"]
+[connection signal="body_entered" from="PastNotify3" to="." method="_on_PastNotify3_body_entered"]
+[connection signal="body_entered" from="PastNotify4" to="." method="_on_PastNotify4_body_entered"]

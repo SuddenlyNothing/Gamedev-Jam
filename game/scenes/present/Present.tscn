@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/present/Shop.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/environment/abandoned_cave_bg.png" type="Texture" id=2]
@@ -10,18 +10,19 @@
 [ext_resource path="res://assets/environment/rail_present.png" type="Texture" id=8]
 [ext_resource path="res://assets/environment/cave_passage_present.png" type="Texture" id=9]
 [ext_resource path="res://assets/environment/cave_passage_present_over.png" type="Texture" id=10]
+[ext_resource path="res://objects/Rock.tscn" type="PackedScene" id=11]
 
 [node name="Present" type="Node2D"]
 __meta__ = {
 "_edit_horizontal_guides_": [ 200.0, 60.0 ],
-"_edit_vertical_guides_": [ 244.0, 400.0, 900.0 ]
+"_edit_vertical_guides_": [ 244.0, 400.0, 900.0, 1050.0, 1290.0, 1570.0, 1664.0 ]
 }
 
 [node name="RailBg" type="Sprite" parent="."]
 texture = ExtResource( 8 )
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 2, 1200, 90 )
+region_rect = Rect2( 0, 2, 2400, 90 )
 
 [node name="MineBg" type="Sprite" parent="."]
 position = Vector2( 400, 0 )
@@ -76,3 +77,30 @@ z_index = 100
 texture = ExtResource( 10 )
 flip_h = true
 script = ExtResource( 7 )
+
+[node name="Rock" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1050, 60 )
+
+[node name="Rock2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1290, 60 )
+
+[node name="Rock3" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1570, 60 )
+
+[node name="Rock4" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1634, 60 )
+
+[node name="Rock5" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1665, 60 )
+
+[node name="Rock6" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1695, 60 )
+
+[node name="Rock7" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1774, 60 )
+
+[node name="Rock8" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1436, 60 )
+
+[node name="Rock9" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1209, 60 )

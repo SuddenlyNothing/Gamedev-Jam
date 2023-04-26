@@ -90,7 +90,7 @@ __meta__ = {
 [node name="Shopkeeper" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -33 )
 frames = SubResource( 21 )
-frame = 6
+frame = 11
 speed_scale = 2.0
 playing = true
 

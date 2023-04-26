@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://characters/CharacterPuppet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/characters/spr_enemy_running.png" type="Texture" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://assets/characters/spr_enemy_idle.png" type="Texture" id=4]
 [ext_resource path="res://assets/characters/spr_enemy_kidnap.png" type="Texture" id=5]
 [ext_resource path="res://assets/characters/spr_enemy_talk.png" type="Texture" id=6]
+[ext_resource path="res://assets/characters/spr_enemy_gun.png" type="Texture" id=7]
+[ext_resource path="res://utils/MultiAudioPlayer2D.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/sfx/shot1.wav" type="AudioStream" id=9]
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 4 )
@@ -103,8 +106,48 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 7 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 7 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=29]
+animations = [ {
+"frames": [ SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 30 ) ],
+"loop": false,
+"name": "shoot",
+"speed": 5.0
+} ]
+
+[sub_resource type="AudioStreamRandomPitch" id=33]
+resource_local_to_scene = true
+
 [node name="EnemyPuppet" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+dialog_color = Color( 1, 0.364706, 0.364706, 1 )
+start_left = false
 
 [node name="AnimatedSprite" parent="Pivot" index="0"]
 frames = SubResource( 11 )
+
+[node name="Gun" type="AnimatedSprite" parent="Pivot" index="1"]
+visible = false
+position = Vector2( -5, -16 )
+frames = SubResource( 29 )
+animation = "shoot"
+speed_scale = 2.0
+
+[node name="BulletPos" type="Position2D" parent="Pivot/Gun" index="0"]
+position = Vector2( 14, 8 )
+
+[node name="GunSFX" parent="." index="2" instance=ExtResource( 8 )]
+position = Vector2( 9, -8 )
+stream = SubResource( 33 )
+audio_streams = [ ExtResource( 9 ) ]

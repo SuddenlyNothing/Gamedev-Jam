@@ -14,7 +14,7 @@ rect_pivot_offset = Vector2( 410, 226 )
 theme = ExtResource( 3 )
 script = ExtResource( 1 )
 start_focus_button_path = NodePath("M/V/H/P/V/V/Audio")
-menu_scene = "res://scenes/Demo.tscn"
+menu_scene = "res://scenes/MainMeni.tscn"
 
 [node name="M" type="MarginContainer" parent="."]
 anchor_right = 1.0

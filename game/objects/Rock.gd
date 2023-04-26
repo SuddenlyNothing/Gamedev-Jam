@@ -2,7 +2,7 @@ extends StaticBody2D
 
 var is_inside := false
 
-onready var original_pos := Vector2() setget set_original_pos
+onready var original_pos := position setget set_original_pos
 onready var collision := $CollisionShape2D
 
 

@@ -2,7 +2,7 @@ extends Line2D
 
 var from_point: Vector2 = Vector2()
 var to_point: Vector2 = Vector2.ONE * 90
-var dur := 0.1
+var dur := 0.18
 
 
 func _ready() -> void:

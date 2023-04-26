@@ -11,5 +11,5 @@ dest_files=[ "res://.import/The Wild Wild West mp3.mp3-0c225b3b972519470d66db5d0
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
