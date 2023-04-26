@@ -4,7 +4,7 @@ extends Node
 var user_keys := PoolStringArray([
 	"pause",
 	"interact",
-	"time_travel",
+	"warp",
 	"left",
 	"right"
 ])

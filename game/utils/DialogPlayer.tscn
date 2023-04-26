@@ -14,12 +14,12 @@ default_audio = ExtResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-custom_constants/margin_top = 200
+custom_constants/margin_top = 60
 
 [node name="ColorRect" type="ColorRect" parent="M"]
-margin_top = 200.0
-margin_right = 448.0
-margin_bottom = 256.0
+margin_top = 60.0
+margin_right = 160.0
+margin_bottom = 90.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0.392157 )
 
@@ -27,19 +27,20 @@ color = Color( 0, 0, 0, 0.392157 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-custom_constants/margin_right = 50
-custom_constants/margin_top = 10
-custom_constants/margin_left = 50
-custom_constants/margin_bottom = 10
+custom_constants/margin_right = 10
+custom_constants/margin_top = 5
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 5
 
 [node name="RichTextLabel" type="RichTextLabel" parent="M/ColorRect/M"]
 unique_name_in_owner = true
-margin_left = 50.0
-margin_top = 10.0
-margin_right = 398.0
-margin_bottom = 46.0
+margin_left = 10.0
+margin_top = 5.0
+margin_right = 150.0
+margin_bottom = 25.0
 rect_clip_content = false
 bbcode_enabled = true
+scroll_active = false
 
 [node name="TextSFX" type="AudioStreamPlayer" parent="."]
 bus = "SFX"

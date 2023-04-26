@@ -13,40 +13,41 @@ script = ExtResource( 1 )
 font_path = "res://assets/fonts/dpcomic.ttf"
 
 [node name="M" type="MarginContainer" parent="."]
-margin_right = 448.0
-margin_bottom = 22.0
-custom_constants/margin_right = 4
-custom_constants/margin_left = 4
+margin_right = 160.0
+margin_bottom = 14.0
+custom_constants/margin_right = 1
+custom_constants/margin_left = 1
 
 [node name="ResetAll" parent="M" instance=ExtResource( 3 )]
-margin_left = 346.594
-margin_right = 444.0
-size_flags_horizontal = 8
+margin_left = 1.0
+margin_right = 159.0
+margin_bottom = 14.0
+size_flags_horizontal = 9
 text = "Reset Controls"
 
 [node name="S" type="ScrollContainer" parent="."]
-margin_top = 24.0
-margin_right = 448.0
-margin_bottom = 256.0
+margin_top = 16.0
+margin_right = 160.0
+margin_bottom = 90.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="M" type="MarginContainer" parent="S"]
-margin_right = 448.0
-margin_bottom = 232.0
+margin_right = 160.0
+margin_bottom = 74.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_right = 4
+custom_constants/margin_right = 3
 custom_constants/margin_top = 2
-custom_constants/margin_left = 4
+custom_constants/margin_left = 1
 
 [node name="ModulesParent" type="VBoxContainer" parent="S/M"]
-margin_left = 4.0
+margin_left = 1.0
 margin_top = 2.0
-margin_right = 444.0
-margin_bottom = 232.0
+margin_right = 157.0
+margin_bottom = 74.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 2

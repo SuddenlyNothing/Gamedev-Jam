@@ -19,57 +19,57 @@ menu_scene = "res://scenes/Demo.tscn"
 [node name="M" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/margin_right = 40
-custom_constants/margin_top = 20
-custom_constants/margin_left = 40
-custom_constants/margin_bottom = 20
+custom_constants/margin_right = 10
+custom_constants/margin_top = 3
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 3
 
 [node name="V" type="VBoxContainer" parent="M"]
-margin_left = 40.0
-margin_top = 20.0
-margin_right = 408.0
-margin_bottom = 236.0
-custom_constants/separation = 5
+margin_left = 10.0
+margin_top = 3.0
+margin_right = 150.0
+margin_bottom = 87.0
+custom_constants/separation = 2
 
 [node name="P" type="PanelContainer" parent="M/V"]
-margin_right = 368.0
-margin_bottom = 36.0
+margin_right = 140.0
+margin_bottom = 12.0
 
 [node name="Label" type="Label" parent="M/V/P"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 358.0
-margin_bottom = 26.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 138.0
+margin_bottom = 10.0
 custom_styles/normal = SubResource( 14 )
 text = "Settings"
 
 [node name="H" type="HBoxContainer" parent="M/V"]
-margin_top = 41.0
-margin_right = 368.0
-margin_bottom = 216.0
+margin_top = 14.0
+margin_right = 140.0
+margin_bottom = 84.0
 size_flags_vertical = 3
-custom_constants/separation = 5
+custom_constants/separation = 2
 
 [node name="P" type="PanelContainer" parent="M/V/H"]
-margin_right = 121.0
-margin_bottom = 175.0
+margin_right = 34.0
+margin_bottom = 70.0
 size_flags_horizontal = 3
 
 [node name="V" type="VBoxContainer" parent="M/V/H/P"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 111.0
-margin_bottom = 165.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 32.0
+margin_bottom = 68.0
 size_flags_horizontal = 3
 
 [node name="V" type="VBoxContainer" parent="M/V/H/P/V"]
-margin_right = 101.0
-margin_bottom = 62.0
+margin_right = 29.0
+margin_bottom = 35.0
 
 [node name="Audio" parent="M/V/H/P/V/V" instance=ExtResource( 2 )]
 unique_name_in_owner = true
-margin_right = 101.0
-margin_bottom = 18.0
+margin_right = 29.0
+margin_bottom = 9.0
 size_flags_horizontal = 3
 disabled = true
 toggle_mode = true
@@ -80,9 +80,8 @@ disabled_timing = 0.2
 
 [node name="Controls" parent="M/V/H/P/V/V" instance=ExtResource( 2 )]
 unique_name_in_owner = true
-margin_top = 22.0
-margin_right = 101.0
-margin_bottom = 40.0
+margin_top = 13.0
+margin_right = 29.0
 size_flags_horizontal = 3
 toggle_mode = true
 text = "Controls"
@@ -91,9 +90,9 @@ disabled_timing = 0.2
 
 [node name="ScreenSettings" parent="M/V/H/P/V/V" instance=ExtResource( 2 )]
 unique_name_in_owner = true
-margin_top = 44.0
-margin_right = 101.0
-margin_bottom = 62.0
+margin_top = 26.0
+margin_right = 29.0
+margin_bottom = 35.0
 size_flags_horizontal = 3
 toggle_mode = true
 text = "Screen"
@@ -101,38 +100,37 @@ pressed_timing = 0.2
 disabled_timing = 0.2
 
 [node name="V2" type="VBoxContainer" parent="M/V/H/P/V"]
-margin_top = 115.0
-margin_right = 101.0
-margin_bottom = 155.0
+margin_top = 44.0
+margin_right = 29.0
+margin_bottom = 66.0
 size_flags_vertical = 10
 
 [node name="Back" parent="M/V/H/P/V/V2" instance=ExtResource( 2 )]
 unique_name_in_owner = true
-margin_right = 101.0
-margin_bottom = 18.0
+margin_right = 29.0
+margin_bottom = 9.0
 size_flags_horizontal = 3
 text = "Back"
 
 [node name="Menu" parent="M/V/H/P/V/V2" instance=ExtResource( 2 )]
 unique_name_in_owner = true
-margin_top = 22.0
-margin_right = 101.0
-margin_bottom = 40.0
+margin_top = 13.0
+margin_right = 29.0
 size_flags_horizontal = 3
 text = "Menu"
 
 [node name="P2" type="PanelContainer" parent="M/V/H"]
-margin_left = 126.0
-margin_right = 368.0
-margin_bottom = 175.0
+margin_left = 36.0
+margin_right = 140.0
+margin_bottom = 70.0
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 3.0
 
 [node name="Settings" parent="M/V/H/P2" instance=ExtResource( 4 )]
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 232.0
-margin_bottom = 165.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 102.0
+margin_bottom = 68.0

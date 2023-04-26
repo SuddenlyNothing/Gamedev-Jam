@@ -119,7 +119,7 @@ func _ready() -> void:
 	scientist.read([
 		"No, of course not.",
 		"I'm just your friendly neighborhood scientist",
-		"How would you like to tes-- use my new [color=white][rainbow]time travel device[/rainbow][/color]?"
+		"How would you like to tes-- use my new [color=white][rainbow]time warp device[/rainbow][/color]?"
 	])
 	yield(scientist, "dialog_finished")
 	friend.read([
@@ -200,7 +200,7 @@ func _on_Player_collected_gold(amt: int) -> void:
 		enemies[i].set_facing(-1)
 	enemies[1].following = true
 	enemies[1].follow_target = enemies[0]
-	enemies[1].follow_dist = 64
+	enemies[1].follow_dist = 32
 	enemies[2].following = true
 	enemies[2].follow_target = enemies[1]
 	enemies[0].read([
@@ -211,7 +211,7 @@ func _on_Player_collected_gold(amt: int) -> void:
 	get_tree().call_group("global_camera", "set_focus", player,
 			Vector2.RIGHT * 64)
 	enemies[0].goto_pos(
-		Vector2(player.position.x + 128, 0)
+		Vector2(player.position.x + 64, 0)
 	)
 	player.read([
 		"Your gold? We mined it fair and square"
@@ -264,11 +264,11 @@ func _on_Player_collected_gold(amt: int) -> void:
 func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 	get_tree().call_group("global_camera", "set_zoom", Vector2.ONE / 2)
 	get_tree().call_group("global_camera", "set_focus", prop_bullet,
-			Vector2.DOWN * 72)
+			Vector2.DOWN * 15)
 	yield(get_tree().create_timer(1.0, false), "timeout")
 	scene_switcher.set_locked(false)
 	dialog_player.read([
-		"Press {time_travel} to time travel"
+		"Press {warp} to time warp"
 	])
 	enemies[1].following = true
 	enemies[2].following = true
@@ -280,26 +280,30 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 	remove_child(prop_gun)
 	past.add_child(prop_gun)
 	scientist.hide()
-	yield(scene_switcher, "switched_scene")
 	var present: Node = scene_switcher.get_present()
 	remove_child(rock)
 	present.add_child(rock)
+	yield(scene_switcher, "switched_scene")
 	rock.show()
-	rock.set_original_pos(enemies[0].position + Vector2.LEFT * 64)
+	rock.set_original_pos(enemies[0].position + Vector2.LEFT * 32)
 	
 	dialog_player.stop()
 	scene_switcher.set_locked(true)
 	yield(get_tree().create_timer(0.5, false), "timeout")
-	scientist.position.x = player.position.x - 48
+	get_tree().call_group("global_camera", "set_zoom", Vector2.ONE)
+	get_tree().call_group("global_camera", "set_focus", player,
+			Vector2.LEFT * 16)
+	player.read([
+		"Whew! That was a close one..."
+	])
+	yield(player, "dialog_finished")
+	scientist.position.x = player.position.x - 32
 	scientist.set_facing(1)
 	scientist.show()
 	appear.emitting = true
 	scientist.read([
 		"STOP!"
 	])
-	get_tree().call_group("global_camera", "set_zoom", Vector2.ONE)
-	get_tree().call_group("global_camera", "set_focus", player,
-			Vector2.LEFT * 24)
 	yield(scientist, "dialog_finished")
 	player.set_facing(-1)
 	scientist.read([
@@ -316,7 +320,7 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 		"There's only a minute remaining on the device!",
 	])
 	yield(scientist, "dialog_finished")
-	scientist.goto_pos(player.position + Vector2.LEFT * 48)
+	scientist.goto_pos(player.position + Vector2.LEFT * 32)
 	player.read([
 		"One minute?! My friend is still in the past"
 	])
@@ -345,3 +349,5 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 	player.set_locked(false)
 	scene_switcher.set_locked(false)
 	get_tree().call_group("global_camera", "set_focus", player)
+	yield(scene_switcher, "switched_scene")
+	

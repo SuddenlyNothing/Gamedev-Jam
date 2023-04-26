@@ -78,31 +78,42 @@ anchor_bottom = 1.0
 [node name="M" type="MarginContainer" parent="C/HUD"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/margin_top = 10
-custom_constants/margin_left = 20
+custom_constants/margin_right = 120
+custom_constants/margin_top = 5
+custom_constants/margin_bottom = 75
+
+[node name="ColorRect" type="ColorRect" parent="C/HUD/M"]
+visible = false
+margin_top = 5.0
+margin_right = 40.0
+margin_bottom = 15.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
 
 [node name="H" type="HBoxContainer" parent="C/HUD/M"]
-margin_left = 20.0
-margin_top = 10.0
-margin_right = 448.0
-margin_bottom = 26.0
-size_flags_vertical = 0
-custom_constants/separation = 8
+margin_top = 5.0
+margin_right = 40.0
+margin_bottom = 15.0
+custom_constants/separation = 2
 
 [node name="GoldIcon" type="TextureRect" parent="C/HUD/M/H"]
-margin_right = 14.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 14, 14 )
-size_flags_vertical = 0
+margin_left = 4.0
+margin_top = 1.0
+margin_right = 12.0
+margin_bottom = 9.0
+size_flags_horizontal = 10
+size_flags_vertical = 6
 texture = ExtResource( 6 )
-expand = true
-stretch_mode = 1
 
 [node name="GoldCount" type="Label" parent="C/HUD/M/H"]
-margin_left = 22.0
-margin_right = 30.0
-margin_bottom = 16.0
-size_flags_vertical = 1
+margin_left = 14.0
+margin_top = 2.0
+margin_right = 18.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 8 )
+size_flags_horizontal = 2
+size_flags_vertical = 10
+size_flags_stretch_ratio = 2.0
 text = "0"
 
 [node name="DialogPlayer" parent="C" instance=ExtResource( 7 )]

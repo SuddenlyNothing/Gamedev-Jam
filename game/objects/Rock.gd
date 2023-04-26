@@ -6,12 +6,9 @@ onready var original_pos := Vector2() setget set_original_pos
 onready var collision := $CollisionShape2D
 
 
-func set_present(present: bool) -> void:
-	yield(get_tree(), "idle_frame")
-	collision.disabled = not present
-
-
 func set_past(past: bool) -> void:
+	yield(get_tree(), "idle_frame")
+	collision.disabled = past
 	if past:
 		position = original_pos
 	else:

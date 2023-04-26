@@ -27,6 +27,11 @@ onready var purchased := [
 	$Purchased2,
 	$Purchased3
 ]
+onready var areas := [
+	$Gun,
+	$Shield,
+	$Scissor
+]
 
 
 func _input(event: InputEvent) -> void:
@@ -65,7 +70,7 @@ func show_price() -> void:
 
 
 func _on_Gun_body_entered(body: Node) -> void:
-	if p_gun:
+	if p_gun or item == "GUN":
 		return
 	player = body
 	item = "GUN"
@@ -73,7 +78,7 @@ func _on_Gun_body_entered(body: Node) -> void:
 
 
 func _on_Shield_body_entered(body: Node) -> void:
-	if p_shield:
+	if p_shield or item == "SHIELD":
 		return
 	player = body
 	item = "SHIELD"
@@ -81,7 +86,7 @@ func _on_Shield_body_entered(body: Node) -> void:
 
 
 func _on_Scissor_body_entered(body: Node) -> void:
-	if p_scissor:
+	if p_scissor or item == "SCISSOR":
 		return
 	player = body
 	item = "SCISSOR"
@@ -89,6 +94,10 @@ func _on_Scissor_body_entered(body: Node) -> void:
 
 
 func _on_body_exited(body: Node) -> void:
+	for area in areas:
+		if area.get_overlapping_bodies():
+			area.emit_signal("body_entered", body)
+			return
 	price_thought.hide()
 	item = ""
 

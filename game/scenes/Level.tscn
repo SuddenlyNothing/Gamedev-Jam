@@ -21,11 +21,12 @@
 [node name="Level" type="Node2D"]
 script = ExtResource( 6 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 226.0, 200.0, 244.0 ]
+"_edit_horizontal_guides_": [ 60.0 ],
+"_edit_vertical_guides_": [ 279.0 ]
 }
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( -10, 189 )
+position = Vector2( -10, 50 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource( 1 )
@@ -33,7 +34,7 @@ shape = SubResource( 1 )
 [node name="SceneSwitcher" parent="." instance=ExtResource( 2 )]
 
 [node name="Friend" parent="." instance=ExtResource( 10 )]
-position = Vector2( 340, 200 )
+position = Vector2( 208, 60 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -44,16 +45,16 @@ autoplay_dialog = [ [  ], [ "Looking at the shop again are we?" ] ]
 [node name="Waypoints" parent="." instance=ExtResource( 5 )]
 
 [node name="Position2D" type="Position2D" parent="Waypoints"]
-position = Vector2( 477, 226 )
+position = Vector2( 208, 106 )
 
 [node name="FriendFinalPos" type="Position2D" parent="Waypoints"]
-position = Vector2( 249, 226 )
+position = Vector2( 126, 106 )
 
 [node name="Position2D3" type="Position2D" parent="Waypoints"]
-position = Vector2( 425, 226 )
+position = Vector2( 278, 106 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 224, 200 )
+position = Vector2( 108, 60 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 17.0 ],
 "_edit_vertical_guides_": [ 27.0 ]
@@ -63,7 +64,7 @@ __meta__ = {
 
 [node name="Scientist" parent="." instance=ExtResource( 11 )]
 visible = false
-position = Vector2( 289, 200 )
+position = Vector2( 289, 60 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -75,13 +76,13 @@ waypoints_path = NodePath("../Waypoints2")
 [node name="Waypoints2" parent="." instance=ExtResource( 5 )]
 
 [node name="Position2D2" type="Position2D" parent="Waypoints2"]
-position = Vector2( 289, 244 )
+position = Vector2( 167, 124 )
 
 [node name="Position2D5" type="Position2D" parent="Waypoints2"]
-position = Vector2( 230, 244 )
+position = Vector2( 116, 124 )
 
 [node name="Position2D4" type="Position2D" parent="Waypoints2"]
-position = Vector2( 289, 244 )
+position = Vector2( 167, 124 )
 
 [node name="C" type="CanvasLayer" parent="."]
 
@@ -90,7 +91,7 @@ position = Vector2( 289, 244 )
 [node name="Banner" parent="C" instance=ExtResource( 9 )]
 
 [node name="MineFound" type="Area2D" parent="."]
-position = Vector2( 458, 190 )
+position = Vector2( 265, 50 )
 collision_layer = 0
 collision_mask = 2
 
@@ -99,16 +100,16 @@ shape = SubResource( 2 )
 
 [node name="EnemyLeader" parent="." instance=ExtResource( 4 )]
 visible = false
-position = Vector2( 0, 200 )
+position = Vector2( 0, 60 )
 dialog_color = Color( 0.745098, 0.156863, 0.156863, 1 )
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
 visible = false
-position = Vector2( 0, 200 )
+position = Vector2( 0, 60 )
 
 [node name="Enemy2" parent="." instance=ExtResource( 4 )]
 visible = false
-position = Vector2( 0, 200 )
+position = Vector2( 0, 60 )
 
 [node name="PropGun" type="Sprite" parent="."]
 visible = false

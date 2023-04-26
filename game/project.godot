@@ -65,11 +65,11 @@ MusicPlayer="*res://auto_loads/MusicPlayer.tscn"
 
 [display]
 
-window/size/width=448
-window/size/height=256
+window/size/width=160
+window/size/height=90
 window/size/always_on_top=true
-window/size/test_width=896
-window/size/test_height=512
+window/size/test_width=800
+window/size/test_height=450
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
@@ -126,7 +126,7 @@ interact={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
-time_travel={
+warp={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":75,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"physical_scancode":0,"unicode":0,"echo":false,"script":null)

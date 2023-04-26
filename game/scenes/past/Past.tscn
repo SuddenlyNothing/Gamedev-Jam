@@ -4,13 +4,15 @@
 
 [node name="Past" type="Node2D"]
 __meta__ = {
-"_edit_horizontal_guides_": [ 200.0 ]
+"_edit_horizontal_guides_": [ 60.0 ]
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 1568.0
-margin_bottom = 256.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1140.0
+margin_bottom = 90.0
 color = Color( 0.741176, 0.694118, 0.462745, 1 )
 
 [node name="MineArea" parent="." instance=ExtResource( 1 )]
-position = Vector2( 686, 200 )
+position = Vector2( 348, 60 )

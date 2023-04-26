@@ -10,13 +10,13 @@ onready var previous_focus := get_parent()
 func set_focus(node: Node2D, offset: Vector2 = Vector2()) -> void:
 	previous_focus = get_parent()
 	previous_offset = position
+	position = global_position - node.position
 	if t:
 		t.kill()
 	t = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
-	t.tween_property(self, "position", offset, 0.5)\
-			.from(global_position - node.position)
+	t.tween_property(self, "position", offset, 0.5)
 	get_parent().remove_child(self)
-	node.call_deferred("add_child", self)
+	node.add_child(self)
 
 
 func return_focus() -> void:

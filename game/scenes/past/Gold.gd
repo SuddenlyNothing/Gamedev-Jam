@@ -1,7 +1,6 @@
 extends Area2D
 
 const GRAVITY := 400.0
-const GOLD_POS := Vector2(27, 17)
 
 var pickup_pos: Vector2
 var offset: Vector2
@@ -38,11 +37,11 @@ func _on_Gold_body_entered(body: Node2D) -> void:
 	self.disconnect("body_entered", self, "_on_Gold_body_entered")
 	player = body
 	pickup_pos = global_position
-	offset = global_position + (Vector2.RIGHT * 200).rotated(randf() * 2 * PI)
+	offset = global_position + (Vector2.RIGHT * 30).rotated(randf() * 2 * PI)
 	set_process(false)
 	var t := create_tween().set_trans(Tween.TRANS_SINE)\
 			.set_ease(Tween.EASE_IN_OUT)
-	t.tween_method(self, "move_collect", 0.0, 1.0, 0.6)
+	t.tween_method(self, "move_collect", 0.0, 1.0, 0.4)
 	t.tween_callback(self, "hide")
 	t.tween_callback(player, "collect_gold")
 	t.tween_callback(collect_sfx, "play")
@@ -51,8 +50,10 @@ func _on_Gold_body_entered(body: Node2D) -> void:
 func move_collect(weight: float) -> void:
 	var canvas = get_canvas_transform()
 	var topleft = -canvas.origin / canvas.get_scale()
+	var gold_pos = player.gold_icon.rect_global_position + \
+			player.gold_icon.rect_size / 2
 	global_position = lerp(pickup_pos,
-			lerp(offset, topleft + GOLD_POS / canvas.get_scale(), weight),
+			lerp(offset, topleft + gold_pos / canvas.get_scale(), weight),
 			weight)
 
 

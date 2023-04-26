@@ -17,7 +17,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("time_travel") and \
+	if Input.is_action_just_pressed("warp") and \
 			(not t or not t.is_running()) and not locked:
 		toggle_scene()
 

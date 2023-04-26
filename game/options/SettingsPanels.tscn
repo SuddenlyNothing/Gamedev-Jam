@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://options/input_remap/InputRemap.tscn" type="PackedScene" id=2]
 [ext_resource path="res://options/volume_settings/VolumeSettings.tscn" type="PackedScene" id=3]
 [ext_resource path="res://options/screen_settings/ScreenSettings.tscn" type="PackedScene" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -11,6 +17,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_styles/tab_fg = SubResource( 2 )
+custom_styles/tab_disabled = SubResource( 3 )
+custom_styles/tab_bg = SubResource( 4 )
 custom_styles/panel = SubResource( 1 )
 tabs_visible = false
 

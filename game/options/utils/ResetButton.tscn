@@ -5,7 +5,7 @@
 
 [node name="ResetButton" instance=ExtResource( 1 )]
 margin_right = 22.0
-rect_min_size = Vector2( 22, 0 )
+rect_min_size = Vector2( 8, 0 )
 size_flags_horizontal = 9
 size_flags_vertical = 7
 expand_icon = true

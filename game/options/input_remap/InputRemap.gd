@@ -19,7 +19,7 @@ const MOUSE_BUTTONS = {
 
 # Used for determining key button font size
 const BUTTON_H_CONTENT_MARGIN: int = 4
-const DEFAULT_FONT_SIZE: int = 16
+const DEFAULT_FONT_SIZE: int = 8
 
 # Font used for buttons
 export(String, FILE, "*.ttf") var font_path: String
