@@ -52,7 +52,7 @@ _global_script_class_icons={
 
 config/name="gamedev jam"
 run/main_scene="res://scenes/MainMeni.tscn"
-config/icon="res://icon.png"
+config/icon="res://assets/characters/spr_player_idle.png"
 
 [autoload]
 
