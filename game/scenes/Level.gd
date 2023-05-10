@@ -18,6 +18,7 @@ onready var bullet_pos := $PropGun/BulletPos
 onready var dialog_player := $C/DialogPlayer
 onready var rock := $Rock
 onready var prevent_skip_collision := $PreventSkip/CollisionShape2D
+onready var shot_sfx := $ShotSFX
 
 onready var enemies := [
 	$EnemyLeader, $Enemy, $Enemy2
@@ -29,7 +30,69 @@ func _ready() -> void:
 	yield(get_tree(), "idle_frame")
 	player.set_locked(true)
 	scene_switcher.set_locked(true)
-	if Variables.intro_cutscene:
+	if Variables.first_puzzle:
+		scene_switcher.toggle_scene_no_anim()
+		# Mine
+		mine_found_collision.call_deferred("set_disabled", true)
+		
+		# Player
+		player.position.x = Variables.player_x_pos
+		
+		# Friend
+		remove_child(friend)
+		scene_switcher.get_past().add_child(friend)
+		friend.hide()
+		
+		# Enemies
+		for enemy in enemies:
+			enemy.show()
+			enemy.set_facing(-1)
+		enemies[0].position.x = player.position.x + 32
+		enemies[1].kidnap = true
+		enemies[1].position.x = player.position.x + 64
+		enemies[2].position.x = player.position.x + 96
+		enemies[1].follow_target = enemies[0]
+		enemies[1].follow_dist = 32
+		enemies[2].follow_target = enemies[1]
+		enemies[1].following = true
+		enemies[2].following = true
+		
+		# Locks
+		scene_switcher.set_locked(true)
+		player.set_locked(true)
+		
+		# Mine area
+		get_tree().call_group("mine", "collect_max")
+		
+		# Rock
+		remove_child(rock)
+		rock.show()
+		rock.set_past(true)
+		scene_switcher.get_present().add_child(rock)
+		rock.set_original_pos(enemies[0].position + Vector2.LEFT * 32)
+		
+		# Gold
+		player.set_gold(5)
+		
+		enemies[0].read([
+			"We'll see 'bout that. Meet us at the railroad tracks with yer gadget.",
+			"No funny business, otherwise yer pardner gets it."
+		])
+		yield(enemies[0], "dialog_finished")
+		var size := get_viewport_rect().size
+		enemies[0].goto_pos(player.position + size)
+		yield(enemies[0], "reached_waypoint")
+		player.countdown_started = true
+		prevent_skip_collision.call_deferred("set_disabled", true)
+		for enemy in enemies:
+			enemy.hide()
+		friend.hide()
+		player.set_locked(false)
+		scene_switcher.set_locked(false)
+		banner.display("Save Your Friend")
+		get_tree().call_group("mine", "set_max_gold", 15)
+		return
+	elif Variables.intro_cutscene:
 		scene_switcher.toggle_scene_no_anim()
 		var past: Node = scene_switcher.get_past()
 		var present: Node = scene_switcher.get_present()
@@ -83,7 +146,7 @@ func _ready() -> void:
 		return
 	player.set_facing(-1)
 	player.read([
-		"I wish I wasn't so [shake]poor[/shake]",
+		"I wish I wasn't so [shake]poor[/shake][color=#00FFFFFF]...\n\n[color=yellow]Press {interact} to continue",
 		"If I was rich, I would be able to buy all this [wave]cool stuff",
 	])
 	yield(player, "dialog_finished")
@@ -266,7 +329,7 @@ func _on_Player_collected_gold(amt: int) -> void:
 
 
 func gun_cutscene(prop_bullet: Node, past: Node) -> void:
-	$ShotSFX.play()
+	shot_sfx.play()
 	get_tree().call_group("global_camera", "set_zoom", Vector2.ONE / 2)
 	get_tree().call_group("global_camera", "set_focus", prop_bullet,
 			Vector2.DOWN * 15)
@@ -354,6 +417,7 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 	scene_switcher.set_locked(false)
 	get_tree().call_group("global_camera", "set_focus", player)
 	yield(scene_switcher, "switched_scene")
+	shot_sfx.play(0.1)
 	scene_switcher.set_locked(true)
 	player.set_locked(true)
 	if player.position.x - player.collision.shape.extents.x <= \
@@ -405,6 +469,7 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 	scene_switcher.set_locked(false)
 	banner.display("Save Your Friend")
 	get_tree().call_group("mine", "set_max_gold", 15)
+	Variables.first_puzzle = true
 
 
 func _on_won(pos: Vector2) -> void:

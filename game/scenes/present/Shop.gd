@@ -42,6 +42,7 @@ onready var sprites := [
 	$Items/ShieldSell,
 	$Items/ScissorSell,
 ]
+onready var purchase_hint := $PurchaseHint
 
 
 func _input(event: InputEvent) -> void:
@@ -81,6 +82,7 @@ func show_price() -> void:
 					.set_trans(Tween.TRANS_QUAD)
 			t.tween_property(sprites[i], "offset:y", -4, 0.6)
 			t.tween_property(sprites[i], "offset:y", -2, 0.6)
+			purchase_hint.show()
 		else:
 			labels[i].modulate = Color("000")
 			var ot := create_tween().set_ease(Tween.EASE_IN_OUT)\
@@ -124,3 +126,4 @@ func _on_body_exited(body: Node) -> void:
 				.set_trans(Tween.TRANS_QUAD)
 		ot.tween_property(sprites[i], "offset:y", 0, 0.1)
 	item = ""
+	purchase_hint.hide()

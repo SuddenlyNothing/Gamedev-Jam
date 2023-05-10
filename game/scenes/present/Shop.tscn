@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://assets/environment/scissor_sell.png" type="Texture" id=1]
 [ext_resource path="res://scenes/present/Shop.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/environment/shop_price.png" type="Texture" id=9]
 [ext_resource path="res://assets/environment/10.png" type="Texture" id=10]
 [ext_resource path="res://assets/sfx/buy merchant.mp3" type="AudioStream" id=11]
+[ext_resource path="res://utils/InputFormatLabel.tscn" type="PackedScene" id=12]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 6 )
@@ -84,14 +85,14 @@ extents = Vector2( 11, 5.75 )
 [node name="Shop" type="Node2D" groups=["present"]]
 script = ExtResource( 2 )
 __meta__ = {
-"_edit_horizontal_guides_": [ -34.0, -31.0 ],
+"_edit_horizontal_guides_": [ -34.0, -31.0, 60.0 ],
 "_edit_vertical_guides_": [ 29.0, 55.0, -37.0 ]
 }
 
 [node name="Shopkeeper" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -33 )
 frames = SubResource( 21 )
-frame = 10
+frame = 12
 speed_scale = 2.0
 playing = true
 
@@ -182,6 +183,22 @@ flip_h = true
 [node name="PurchaseSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
 bus = "SFX"
+
+[node name="PurchaseHint" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="M" type="MarginContainer" parent="PurchaseHint"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_top = 81
+
+[node name="InputFormatLabel" parent="PurchaseHint/M" instance=ExtResource( 12 )]
+margin_top = 81.0
+margin_right = 160.0
+margin_bottom = 89.0
+text = "Press {interact} to purchase"
+align = 1
+valign = 1
 
 [connection signal="body_entered" from="Gun" to="." method="_on_Gun_body_entered"]
 [connection signal="body_exited" from="Gun" to="." method="_on_body_exited"]

@@ -14,3 +14,5 @@ var input_format := {}
 
 var intro_cutscene := false
 var player_x_pos := 617
+
+var first_puzzle := false
