@@ -25,6 +25,7 @@ func attack() -> void:
 func set_past(past: bool) -> void:
 	if moving:
 		collision.call_deferred("set_disabled", not past)
+	anim_sprite.playing = past
 	set_physics_process(past)
 
 

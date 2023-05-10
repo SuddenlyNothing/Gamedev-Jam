@@ -290,6 +290,7 @@ func _on_Player_collected_gold(amt: int) -> void:
 		"If y'all don't want to lose a limb, hand it over"
 	])
 	yield(enemies[0], "dialog_finished")
+	friend.following = false
 	friend.read([
 		"Maybe we should give it back..."
 	])
@@ -336,8 +337,8 @@ func gun_cutscene(prop_bullet: Node, past: Node) -> void:
 	yield(get_tree().create_timer(1.0, false), "timeout")
 	scene_switcher.set_locked(false)
 	dialog_player.read([
-		"Press {warp} to time warp"
-	])
+		"[color=yellow]Press {warp} to time warp"
+	], false)
 	enemies[1].following = true
 	enemies[2].following = true
 	remove_child(friend)

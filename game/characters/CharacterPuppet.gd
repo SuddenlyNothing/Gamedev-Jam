@@ -83,9 +83,9 @@ func set_facing(input: int) -> void:
 		flip()
 
 
-func read(dialog: Array) -> void:
+func read(dialog: Array, can_skip: bool = true) -> void:
 	play_anim("talk")
-	dialog_player.read(dialog)
+	dialog_player.read(dialog, can_skip)
 
 
 func set_waypoints_path(val: NodePath) -> void:

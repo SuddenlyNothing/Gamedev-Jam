@@ -280,7 +280,7 @@ position = Vector2( 1678, 66 )
 [node name="Friend" type="AnimatedSprite" parent="."]
 position = Vector2( 1678, 46 )
 frames = SubResource( 11 )
-frame = 8
+frame = 9
 speed_scale = 2.0
 playing = true
 

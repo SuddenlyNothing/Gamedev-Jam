@@ -22,6 +22,7 @@ var dialogs: Array
 var d_ind: int
 var reading: bool = false
 var has_dialog: bool = false
+var can_skip: bool = false
 var curr_text: String = ""
 var t: SceneTreeTween
 
@@ -35,7 +36,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if has_dialog:
+	if has_dialog and can_skip:
 		if event.is_action_pressed("interact", false, false):
 			if reading:
 				t.kill()
@@ -47,8 +48,9 @@ func _input(event: InputEvent) -> void:
 			accept_event()
 
 
-func read(d: Array, color: Color = default_color,
+func read(d: Array, can_skip: bool = true, color: Color = default_color,
 		sfx: AudioStream = default_audio) -> void:
+	self.can_skip = can_skip
 	if not sfx:
 		sfx = default_audio
 	label.set("custom_colors/default_color", color)
